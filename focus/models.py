@@ -110,6 +110,7 @@ class Article(models.Model):
     comment_num = models.IntegerField(default=0)
     keep_num = models.IntegerField(default=0)
 
+
     def __str__(self):
         return self.content
 

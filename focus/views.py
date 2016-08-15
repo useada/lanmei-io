@@ -19,21 +19,16 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def topic_handler(request, topic_id):
+def topic_handler(request, topic_id, topic_page=0):
     topic = get_object_or_404(Topic, id=topic_id)
-    # content = markdown2.markdown(topic.content, extras=["code-friendly",
-    #     "fenced-code-blocks", "header-ids", "toc", "metadata"])
     login_form = LoginForm()
     article_form = ArticleForm()
     comment_form = CommmentForm()
-    # for article in article_list:
-    #     article.comment_set.all()
 
     article_set = Article.objects.query_by_topic(topic_id)
     article_paginator = Paginator(article_set, 5)
-    page = request.GET.get('page')
     try:
-        article_list = article_paginator.page(page)
+        article_list = article_paginator.page(topic_page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
         article_list = article_paginator.page(1)
@@ -41,14 +36,42 @@ def topic_handler(request, topic_id):
         # If page is out of range (e.g. 9999), deliver last page of results.
         article_list = article_paginator.page(article_paginator.num_pages)
 
+    for article in article_list:
+        article.comment_list = get_comment(article, 1);
+
     return render(request, 'topic_page.html', {
         'topic': topic,
         'login_form': login_form,
-        # 'content': content,
         'article_form': article_form,
         'article_list': article_list,
         'comment_form': comment_form,
     })
+
+
+def get_comment(article, comment_page):
+    comment_set = article.comment_set.get_queryset()
+    comment_paginator = Paginator(comment_set, 10)
+
+    try:
+        comment_list = comment_paginator.page(comment_page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        comment_list = comment_paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        comment_list = comment_paginator.page(comment_paginator.num_pages)
+    return comment_list;
+
+
+def comment_handler(request, topic_id, article_id, comment_page):
+    article = get_object_or_404(Article, id=article_id)
+    comment_form = CommmentForm()
+    article.comment_list = get_comment(article, comment_page);
+    return render(request, 'comment.html', {
+        'article': article,
+        'comment_form': comment_form,
+    })
+
 
 
 @login_required

@@ -49,114 +49,21 @@
                         </div>
                     </div>
 
-                    <div class="row" id="article-{{ article.id }}-comment">
+                    <div class="row">
                         <div class="col-xs-12">
-                            <!-- Comments -->
-                            <div class="pagination panel panel-default">
-
-{% comment %}                 <div class="panel-heading">
-                                    <ul class="list-inline panel-title">
-                                        <li> <a id="article-{{ article.id }}-comment-door"> <span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论</a> </li>
-                                        <li><a href="/focus/{{ article.id }}/keep/"><span class="glyphicon glyphicon-star-empty"></span>{{ article.keep_num }} 收藏</a></li>
-                                        <li><a href="/focus/{{ article.id }}/poll/"><span class="glyphicon glyphicon-thumbs-up"></span>{{ article.poll_num }} 赞</a></li>
-
-                                        {% if user.id == article.author_id %}
-                                            <li><a href="/focus/del_article/{{ topic.id }}/{{ article.id }}/">删除文章</a></li>
-                                        {% endif %}
-
-                                    </ul>
-                                </div>
-{% endcomment %}
-                                <div class="list-group">
-                                    {% for comment in article.comment_set.all %}
-                                        <article class="list-group-item">
-                                            {% if user.id == comment.author_id %}
-                                            <div class="pull-right">
-                                                <a href="/focus/del_comment/{{ topic.id }}/{{ article.id }}/{{ comment.id }}/">
-                                                    删除
-                                                </a>
-                                            </div>
-                                            {% endif %}
-                                            <div><b>{{ article.author }}</b> <br> {{ comment.content | safe }}</div>
-                                        </article>
-                                    {% endfor %}
-
-                                    <div class="list-group-item">
-                                        <form action="/focus/add_comment/{{ topic.id }}/{{ article.id }}/" method="post">
-                                            {% csrf_token %}
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="input-group">
-                                                        <input name="content" type="text" class="form-control" placeholder="您的评论">
-                                                        <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="submit">添加评论</button>
-                                                        </span>
-                                                    </div><!-- /input-group -->
-                                                </div><!-- /.col-xs-12 -->
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
+                            <div id="article-{{ article.id }}-comment">
+{% include "comment.html" %}
                             </div>
-
-{#                            <nav>#}
-{#                                <ul class="pagination">#}
-{#                                    <li>#}
-{#                                        <a class="disabled" href="#" aria-label="Previous">#}
-{#                                            <span aria-hidden="true">上一页</span>#}
-{#                                        </a>#}
-{#                                    </li>#}
-{#                                    <li><a class="active" href="#">1</a></li>#}
-{#                                    <li><a href="#">2</a></li>#}
-{#                                    <li><a href="#">3</a></li>#}
-{#                                    <li><a href="#">4</a></li>#}
-{#                                    <li><a href="#">5</a></li>#}
-{#                                    <li>#}
-{#                                        <a href="#" aria-label="Next">#}
-{#                                            <span aria-hidden="true">下一页</span>#}
-{#                                        </a>#}
-{#                                    </li>#}
-{#                                </ul>#}
-{#                            </nav>#}
-
                         </div>
                     </div>
 
+
                 </article>
 
-                <script type="text/javascript">
-                    $('#article-{{ article.id }}-comment').twbsPagination({
-                        totalPages: 35,
-                        visiblePages: 5,
-                        first: "首页",
-                        prev: "上页",
-                        next: "下页",
-                        last: "末页",
-                        paginationClass: "pagination center",
-                        onPageClick: function (event, page) {
-                            $('#page-content').text('Page ' + page);
-                        }
-                    });
 
-                    $('#article-{{ article.id }}-comment').hide();
-
-                    $('#article-{{ article.id }}-comment-door').click(
-                            function(){
-                                var door = $('#article-{{ article.id }}-comment-door');
-                                var node=$('#article-{{ article.id }}-comment');
-                                if (node.is(':visible'))
-                                {
-                                    node.hide();
-                                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(查看添加)');
-                                }
-                                else
-                                {
-                                    node.show();
-                                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(收起评论)');
-                                }
-                            });
-                </script>
+<script type="text/javascript">
+    $('#article-{{ article.id }}-comment').hide();
+</script>
 
 
             </div>
