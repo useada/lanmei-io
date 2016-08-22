@@ -24,7 +24,7 @@
                 <article class="list-group-item">
                     {% if user.id == comment.author_id %}
                         <div class="pull-right">
-                            <a href="/focus/del_comment/{{ topic.id }}/{{ article.id }}/{{ comment.id }}/">
+                            <a href="javascript:void(0);" url="/focus/del_comment/{{ topic.id }}/{{ article.id }}/{{ comment.id }}/">
                                 删除
                             </a>
                         </div>
@@ -34,15 +34,15 @@
             {% endfor %}
 
             <div class="list-group-item">
-                <form action="/focus/add_comment/{{ topic.id }}/{{ article.id }}/" method="post">
+                <form id="article-{{ article.id }}-add-comment" {# action="/focus/add_comment/{{ topic.id }}/{{ article.id }}/" #} method="post">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="input-group">
-                                <input name="content" type="text" class="form-control" placeholder="您的评论">
-                                                        <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="submit">添加评论</button>
-                                                        </span>
+                                <input id="article-{{ article.id }}-add-comment-content" name="content" type="text" class="form-control" placeholder="您的评论">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit" id="submit">添加评论</button>
+                                </span>
                             </div><!-- /input-group -->
                         </div><!-- /.col-xs-12 -->
                     </div>
@@ -52,56 +52,74 @@
         </div>
     </div>
 
-    {#                            <nav>#}
-    {#                                <ul class="pagination">#}
-    {#                                    <li>#}
-    {#                                        <a class="disabled" href="#" aria-label="Previous">#}
-    {#                                            <span aria-hidden="true">上一页</span>#}
-    {#                                        </a>#}
-    {#                                    </li>#}
-    {#                                    <li><a class="active" href="#">1</a></li>#}
-    {#                                    <li><a href="#">2</a></li>#}
-    {#                                    <li><a href="#">3</a></li>#}
-    {#                                    <li><a href="#">4</a></li>#}
-    {#                                    <li><a href="#">5</a></li>#}
-    {#                                    <li>#}
-    {#                                        <a href="#" aria-label="Next">#}
-    {#                                            <span aria-hidden="true">下一页</span>#}
-    {#                                        </a>#}
-    {#                                    </li>#}
-    {#                                </ul>#}
-    {#                            </nav>#}
-
+{% load staticfiles %}
+<script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+<script src="{% static "js/jquery.twbsPagination.min.js" %}"></script>
 
 
 <script type="text/javascript">
+    $(document).ready(function(){
+            $.ajaxSetup({
+                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' } });
+            });
+</script>
+
+<script type="text/javascript">
     $('#article-{{ article.id }}-comment').twbsPagination({
-        totalPages: 35,
+        totalPages: {{ article.comment_page_num }},
+        initiateStartPageClick: false,
         visiblePages: 5,
+        startPage: {{ article.comment_page }},
         first: "首页",
         prev: "上页",
         next: "下页",
         last: "末页",
         paginationClass: "pagination center",
         onPageClick: function (event, page) {
-            $('#page-content').text('Page ' + page);
+            $('#article-{{ article.id }}-comment').load("/focus/comment/{{ topic.id }}/{{ article.id }}/" + page);
         }
     });
 
-    $('#article-{{ article.id }}-comment-door').click(
-            function(){
-                var door = $('#article-{{ article.id }}-comment-door');
-                var node=$('#article-{{ article.id }}-comment');
-                if (node.is(':visible'))
-                {
-                    node.hide();
-                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(查看添加)');
-                }
-                else
-                {
-                    node.show();
-                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(收起评论)');
-                }
-            });
+
+    $('#article-{{ article.id }}-add-comment').submit(function(){
+        var content = $("#article-{{ article.id }}-add-comment-content").val();
+
+        $.ajax({
+            type:"POST",
+            data: {content:content},
+            url:  '/focus/add_comment/{{ topic.id }}/{{ article.id }}/',
+            cache: false,
+            dataType: "html",
+            success: function(result, statues, xml){
+                //alert(result);
+                $('#article-{{ article.id }}-comment').html(result);
+            },
+            error: function(){
+                //alert("false");
+            }
+        });
+        return false;
+    });
+
+
+    $("a[url]").click(function() {
+        //console.log("hahaha");
+        var $this = $(this);
+        var url = $this.attr("url");
+        if (url) {
+
+            $.get(url, {}, function(data){ $('#article-{{ article.id }}-comment').html(data); });
+
+{#            $this.ajaxUrl({#}
+{#                type : "POST",#}
+{#                url : url,#}
+{#                callback : function() {#}
+{#                }#}
+{#            });#}
+        }
+
+        return false;
+    });
+
 
 </script>

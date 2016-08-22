@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^logout/$', views.log_out, name='logout'),
 
     url(r'^(?P<topic_id>[0-9]+)/$', views.topic_handler, name='topic'),
-    url(r'^(?P<topic_id>[0-9]+)/(?P<topic_page>[0-9]+)/$', views.topic_handler, name='topic'),
+    url(r'^(?P<topic_id>[0-9]+)/(?P<article_page>[0-9]+)/$', views.topic_handler, name='topic'),
     url(r'^add_article/(?P<topic_id>[0-9]+)/$', views.add_article, name='add_article'),
     url(r'^del_article/(?P<topic_id>[0-9]+)/(?P<article_id>[0-9]+)/$', views.del_article, name='del_article'),
     url(r'^edit_article/(?P<topic_id>[0-9]+)/(?P<article_id>[0-9]+)/$', views.edit_article, name='edit_article'),

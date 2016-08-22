@@ -43,6 +43,13 @@
 
 <body>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+            $.ajaxSetup({
+                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' } });
+            });
+</script>
+
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
         <div class="container">

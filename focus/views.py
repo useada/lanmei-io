@@ -8,6 +8,10 @@ from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.http import (
+    Http404, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect,
+)
+
 import markdown2
 import urlparse
 
@@ -19,7 +23,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def topic_handler(request, topic_id, topic_page=0):
+def topic_handler(request, topic_id, article_page=1):
     topic = get_object_or_404(Topic, id=topic_id)
     login_form = LoginForm()
     article_form = ArticleForm()
@@ -28,46 +32,57 @@ def topic_handler(request, topic_id, topic_page=0):
     article_set = Article.objects.query_by_topic(topic_id)
     article_paginator = Paginator(article_set, 5)
     try:
-        article_list = article_paginator.page(topic_page)
+        article_list = article_paginator.page(article_page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
         article_list = article_paginator.page(1)
+        article_page = 1
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         article_list = article_paginator.page(article_paginator.num_pages)
+        article_page = article_paginator.num_pages
 
     for article in article_list:
-        article.comment_list = get_comment(article, 1);
+        article.comment_list, article.comment_page_num, article.comment_page = get_comment(article, 1)
+
+    topic.article_page = article_page
+    topic.total_article_page = article_paginator.num_pages
 
     return render(request, 'topic_page.html', {
         'topic': topic,
         'login_form': login_form,
         'article_form': article_form,
         'article_list': article_list,
+        'article_page_num': article_paginator.num_pages,
         'comment_form': comment_form,
     })
 
 
 def get_comment(article, comment_page):
     comment_set = article.comment_set.get_queryset()
-    comment_paginator = Paginator(comment_set, 10)
+    comment_paginator = Paginator(comment_set, 1)
 
     try:
         comment_list = comment_paginator.page(comment_page)
+        page = comment_page
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
         comment_list = comment_paginator.page(1)
+        page = 1
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         comment_list = comment_paginator.page(comment_paginator.num_pages)
-    return comment_list;
+        page = comment_paginator.num_pages
+    return comment_list, comment_paginator.num_pages, page
 
 
 def comment_handler(request, topic_id, article_id, comment_page):
+    topic = get_object_or_404(Topic, id=topic_id)
     article = get_object_or_404(Article, id=article_id)
     comment_form = CommmentForm()
-    article.comment_list = get_comment(article, comment_page);
+    article.comment_list, article.comment_page_num, article.comment_page = get_comment(article, comment_page)
     return render(request, 'comment.html', {
+        'topic': topic,
         'article': article,
         'comment_form': comment_form,
     })
@@ -77,7 +92,7 @@ def comment_handler(request, topic_id, article_id, comment_page):
 @login_required
 def add_article(request, topic_id):
     form = ArticleForm(request.POST)
-    url = urlparse.urljoin('/focus/', topic_id)
+    url = urlparse.urljoin('/focus/', str(topic_id) + '/9999')
     if form.is_valid():
         user = request.user
         topic = Topic.objects.get(id=topic_id)
@@ -89,7 +104,15 @@ def add_article(request, topic_id):
 
 @login_required
 def edit_article(request, topic_id, article_id):
-    pass
+    form = ArticleForm(request.POST)
+    if form.is_valid():
+        # user = request.user
+        # topic = Topic.objects.get(id=topic_id)
+        article = get_object_or_404(Article, id=article_id)
+        article.content = form.cleaned_data['content']
+        # article = Article(topic=topic, author=user, content=content)
+        article.save()
+    return HttpResponse("ok");
 
 
 @login_required
@@ -108,7 +131,7 @@ def del_article(request, topic_id, article_id):
 @login_required
 def add_comment(request, topic_id, article_id):
     form = CommmentForm(request.POST)
-    url = urlparse.urljoin('/focus/', topic_id)
+    url = urlparse.urljoin('/focus/comment/', topic_id + '/' + article_id + '/' + str(9999))
     if form.is_valid():
         user = request.user
         # topic = Topic.objects.get(id=topic_id)
@@ -131,7 +154,7 @@ def del_comment(request, topic_id, article_id, comment_id):
         pass
     else:
         Comment.delete(comment)
-    url = urlparse.urljoin('/focus/', topic_id)
+        url = urlparse.urljoin('/focus/comment/', topic_id + '/' + article_id + '/' + str(1))
     article.comment_num -= 1
     article.save()
     return redirect(url)
