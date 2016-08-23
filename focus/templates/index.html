@@ -6,15 +6,20 @@
         <!-- Articles -->
         {% for article in latest_article_list %}
             <div class="row">
-                <div class="col-xs-1">
-                    Picture
-                </div>
-                <article class="col-xs-11">
-                    <a href="#">{{ article.author }}</a>, {{ article.author.profile }}
-                    <br><br>
-                    <p>{{ article.content|truncatechars_html:160 | safe }}</p>
+{#                <div class="col-xs-1">#}
+{#                    Picture#}
+{#                </div>#}
+                <article class="col-xs-12">
+                    <a class="text-success" href="#">{{ article.author }}</a> . {{ article.author.profile }}
                     <br>
-                    <p class="pull-right"><a class="small" href="/focus/{{ article.topic_id }}">点击进入</a></p>
+
+                    <a href="/focus/{{ article.topic_id }}">
+                        <h3>
+                            {{ article.content|truncatechars_html:80 | safe }}
+                        </h3>
+                    </a>
+                    <br>
+{#                    <p class="pull-right"><a class="small" href="/focus/{{ article.topic_id }}">点击进入</a></p>#}
                     <ul class="list-inline small">
                         <li><span>{{ article.pub_date | date:"j M" }}</span></li>
                         <li><span><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</span></li>

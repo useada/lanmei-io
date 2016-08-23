@@ -13,7 +13,7 @@ class RegisterForm(forms.Form):
         widget=forms.TextInput(attrs={'id':'username', 'onblur': 'authentication()'}))
     email = forms.EmailField()
     password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput)
+    # password2 = forms.CharField(widget=forms.PasswordInput)
 
 
 class SetInfoForm(forms.Form):

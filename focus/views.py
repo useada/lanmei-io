@@ -226,9 +226,9 @@ def log_in(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['uid']
+            email = form.cleaned_data['uid']
             password = form.cleaned_data['pwd']
-            user = authenticate(username=username, password=password)
+            user = authenticate(email=email, password=password)
             if user is not None:
                 login(request, user)
                 url = request.POST.get('source_url','/focus')
@@ -268,14 +268,14 @@ def register(request):
                 username = form.cleaned_data['username']
                 email = form.cleaned_data['email']
                 password1 = form.cleaned_data['password1']
-                password2 = form.cleaned_data['password2']
-                if password1 != password2:
-                    return render(request, 'register.html', {'form': form, 'msg': "two password is not equal"})
-                else:
-                    user = NewUser(username=username, email=email, password=password1)
-                    user.save()
-                    # return render(request, 'login.html', {'success': "you have successfully registered!"})
-                    return redirect('/focus/login')
+                # password2 = form.cleaned_data['password2']
+                # if password1 != password2:
+                #     return render(request, 'register.html', {'form': form, 'msg': "two password is not equal"})
+                # else:
+                user = NewUser(username=username, email=email, password=password1)
+                user.save()
+                # return render(request, 'login.html', {'success': "you have successfully registered!"})
+                return redirect('/focus/login')
             else:
                 return render(request, 'register.html', {'form': form})
 

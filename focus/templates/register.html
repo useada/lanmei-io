@@ -1,50 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-{% load staticfiles %}
-<script src="{% static "jquery-2.1.1.js" %}">
-</script>
-<script src="{% static "csrf.js" %}">
-</script>
+{% include "header.html" %}
+<div class="container-fluid">
+    <div class="col-sm-4"></div>
+    <!-- Center Column -->
+    <div class="col-sm-4">
 
-<script>
-function authentication(){
-    var raw_username = document.getElementById("username").value;
-	$.ajax({type:'POST', data: {'raw_username': raw_username}
-	});
-};
-</script>
-</head>
-<body>
-<h2>register page</h2>
-<p>{{ msg }}</p>
-<form  method="post" >
- 	{% csrf_token %}
-	{{ form.non_field_errors }}
-	<div class="username">
-	{{ form.username.errors }}
-	<p> username: {{ form.username }}</p>	
-	</div>
-	{% csrf_token %} 
-	<div class="email">
-	{{ form.email.errors }}
-	<p> email: {{ form.email }}</p>  	
-	</div>
+        <h2>在这里注册成为蓝莓用户</h2>
+        <p>{{ msg }}</p>
+        <form  method="post" >
+            {% csrf_token %}
+            {#	{{ form.non_field_errors }}#}
+            {#	<div class="username">#}
+            {#	{{ form.username.errors }}#}
+            {#	<p> username: {{ form.username }}</p>	#}
+            {#	</div>#}
+            {#	{% csrf_token %} #}
+            {#	<div class="email">#}
+            {#	{{ form.email.errors }}#}
+            {#	<p> email: {{ form.email }}</p>  	#}
+            {#	</div>#}
+            {##}
+            {#	<div class="password1">#}
+            {#	{{ form.password1.errors }}#}
+            {#	<p> password:</p>#}
+            {#	{{ form.password1 }}#}
+            {#	</div>#}
+            {##}
+            {#	<div class="password2">#}
+            {#	{{ form.password2.errors }}#}
+            {#	<p> repassword:</p>#}
+            {#	{{ form.password2 }}#}
+            {#	</div>#}
 
-	<div class="password1">
-	{{ form.password1.errors }}
-	<p> password:</p>
-	{{ form.password1 }}
-	</div>
 
-	<div class="password2">
-	{{ form.password2.errors }}
-	<p> repassword:</p>
-	{{ form.password2 }}
-	</div>
-	<input id="sub" type="submit" value="Submit" >
-</form>
-</body>
-</html>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                <div class="input-group">
+                    <span class="input-group-addon">邮箱</span>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="a@b.com" aria-describedby="inputGroupSuccess4Status">
+                </div>
+                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                <div class="input-group">
+                    <span class="input-group-addon">昵称</span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="小楼" aria-describedby="inputGroupSuccess4Status">
+                </div>
+                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                <div class="input-group">
+                    <span class="input-group-addon">密码</span>
+                    <input type="password" class="form-control" id="password1" name="password1" placeholder="******" aria-describedby="inputGroupSuccess4Status">
+                </div>
+                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+            </div>
+
+            <input class="btn btn-info pull-right" type="submit" value="提交" />
+        </form>
+
+
+
+    </div><!--/Center Column-->
+    <div class="col-sm-4"></div>
+</div><!--/container-fluid-->
+
+{% include "footer.html" %}
