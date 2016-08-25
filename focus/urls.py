@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^login/$', views.log_in, name='login'),
     url(r'^logout/$', views.log_out, name='logout'),
 
+    url(r'^helper/$', views.helper, name='helper'),
+    url(r'^topic_list/$', views.topic_list, name='topic_list'),
     url(r'^(?P<topic_id>[0-9]+)/$', views.topic_handler, name='topic'),
     url(r'^(?P<topic_id>[0-9]+)/(?P<article_page>[0-9]+)/$', views.topic_handler, name='topic'),
     url(r'^add_article/(?P<topic_id>[0-9]+)/$', views.add_article, name='add_article'),

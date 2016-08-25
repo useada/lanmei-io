@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = "focus.NewUser"  
+AUTH_USER_MODEL = "focus.MyUser"
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend', 'focus.models.CustomAuth')
 
 LOGIN_URL = "/focus/login/?next='article_id'"
 

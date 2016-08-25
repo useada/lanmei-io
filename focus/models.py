@@ -1,11 +1,133 @@
+# -*- coding: utf-8 -*-
+
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
+class UserManager(BaseUserManager):
+    """通过邮箱，密码创建用户"""
+    def create_user(self, email, username, password=None, type=None, **kwargs):
+        if not email:
+            raise ValueError(u'用户必须要有邮箱')
+
+        user = self.model(
+            email=UserManager.normalize_email(email),
+            username=username,
+            type=type if type else 0
+        )
+        user.set_password(password)
+        if kwargs:
+            if kwargs.get('sex', None): user.sex = kwargs['sex']
+            if kwargs.get('is_active', None): user.is_active=kwargs['is_active']
+            if kwargs.get('uid', None): user.uid=kwargs['uid']
+            if kwargs.get('access_token', None): user.access_token=kwargs['access_token']
+            if kwargs.get('url', None): user.url=kwargs['url']
+            if kwargs.get('desc', None): user.desc=kwargs['desc']
+            if kwargs.get('avatar', None): user.avatar=kwargs['avatar']
+
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, username, password):
+        user = self.create_user(email,
+                                password=password,
+                                username=username,
+                                )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
+    def get_user_by_email(self, email):
+        query = self.get_queryset().filter(email=email)
+        if query.count() > 0:
+            return query[0]
+        else:
+            return None
+
+    def get_user_by_username(self, username):
+        pass
+
+
+@python_2_unicode_compatible
+class MyUser(AbstractBaseUser):
+    """扩展User"""
+    email = models.EmailField(verbose_name='Email', max_length=255, unique=True, db_index=True)
+    username = models.CharField(max_length=50, unique=True, db_index=True)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    type = models.IntegerField(default=0)				# 类型，0本站，1微博登录
+    sex = models.IntegerField(default=1)				# sex
+    uid = models.CharField(max_length=50, null=True)				# weibo uid
+    access_token = models.CharField(max_length=100, null=True)		# weibo access_token
+    url = models.URLField(null=True)							    # 个人站点
+    desc = models.CharField(max_length=2000, null=True)		        # 个人信息简介
+    avatar = models.CharField(max_length=500, null=True)		    # 头像
+    # date_joined = models.DateTimeField(auto_now=True)
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    def get_full_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def get_short_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def __unicode__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        db_table = 'user'
+
+
+class CustomAuth(object):
+    """自定义用户验证"""
+    def authenticate(self, email=None, password=None):
+        try:
+            user = MyUser.objects.get(email=email)
+            if user.check_password(password):
+                return user
+        except MyUser.DoesNotExist:
+            return None
+
+    def get_user(self, user_id):
+        try:
+            user = MyUser.objects.get(pk=user_id)
+            if user.is_active:
+                return user
+            return None
+        except MyUser.DoesNotExist:
+            return None
+
+
+###############################################################################
 class TopicManager(models.Manager):
     def query_by_column(self, column_id):
         query = self.get_queryset().filter(column_id=column_id)
@@ -52,12 +174,12 @@ class ArticleManager(models.Manager):
         return query
 
 
-@python_2_unicode_compatible
-class NewUser(AbstractUser):
-    profile = models.CharField('profile', default='', max_length=256)
-
-    def __str__(self):
-        return self.username
+# @python_2_unicode_compatible
+# class NewUser(AbstractUser):
+#     profile = models.CharField('profile', default='', max_length=256)
+#
+#     def __str__(self):
+#         return self.username
 
 
 @python_2_unicode_compatible
@@ -77,7 +199,7 @@ class Column(models.Model):
 @python_2_unicode_compatible
 class Topic(models.Model):
     column = models.ForeignKey(Column, blank=True, null=True, verbose_name='belong to')
-    author = models.ForeignKey('NewUser')
+    author = models.ForeignKey('MyUser')
     content = models.CharField(max_length=256)
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
     update_date = models.DateTimeField(auto_now=True, null=True)
@@ -100,7 +222,7 @@ class Topic(models.Model):
 class Article(models.Model):
     topic = models.ForeignKey(Topic, blank=True, null=True, verbose_name='belong to')
     # title = models.CharField(max_length=256)
-    author = models.ForeignKey('NewUser')
+    author = models.ForeignKey('MyUser')
     # user = models.ManyToManyField('NewUser', blank=True)
     content = models.TextField('content')
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
@@ -109,7 +231,6 @@ class Article(models.Model):
     poll_num = models.IntegerField(default=0)
     comment_num = models.IntegerField(default=0)
     keep_num = models.IntegerField(default=0)
-
 
     def __str__(self):
         return self.content
@@ -123,7 +244,7 @@ class Article(models.Model):
 
 @python_2_unicode_compatible
 class Comment(models.Model):
-    author = models.ForeignKey('NewUser', null=True)
+    author = models.ForeignKey('MyUser', null=True)
     article = models.ForeignKey(Article, null=True)
     content = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
@@ -144,6 +265,6 @@ class Comment(models.Model):
 
 
 class Poll(models.Model):
-    user = models.ForeignKey('NewUser', null=True)
+    user = models.ForeignKey('MyUser', null=True)
     article = models.ForeignKey(Article, null=True)
     comment = models.ForeignKey(Comment, null=True)

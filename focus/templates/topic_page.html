@@ -4,7 +4,7 @@
     <div class="col-sm-1"></div>
 
     <!-- Center Column -->
-    <div class="col-sm-7">
+    <div class="col-sm-9">
         <!-- Topic -->
         <div class="row">
             <article class="col-xs-12">
@@ -191,6 +191,7 @@
             <hr>
         {% endfor %}
 
+        {% if not article_list|length_is:0 %}
         <div class="row">
             <div class="col-xs-12" id="article-page">
             </div>
@@ -212,13 +213,21 @@
             });
         </script>
 
+        {% else %}
+            <p class="bg-success text-muted">你来到了一块尚未被开发的处女地</p>
+        {% endif %}
+
         <!-- article submit -->
+        <hr>
         <div class="row">
             <div class="col-xs-12">
                 {% if request.user.is_authenticated %}
-                    <span class="glyphicon glyphicon-user"></span> {{ user }}, 在这里, 写下您的故事吧
+                    <h4>
+                        <span class="glyphicon glyphicon-user text-primary"></span>
+                        <span class="text-primary"> {{ user }}</span>, 在这里, 写下您的故事吧
+                    </h4>
                 {% else %}
-                    <span class="glyphicon glyphicon-user"></span> 路人甲, 在这里, 写下您的故事吧
+                    <h4><span class="glyphicon glyphicon-user"></span> 路人甲, 在这里, 写下您的故事吧</h4>
                 {% endif %}
             </div>
         </div>
@@ -255,10 +264,10 @@
 
 
     <!-- Right Column -->
-{% include "righter.html" %}
+{#{% include "righter.html" %}#}
 
 
-    <div class="col-sm-1"></div>
+    <div class="col-sm-2"></div>
 </div><!--/container-fluid-->
 
 

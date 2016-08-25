@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db import models
 from django import forms
-from .models import Comment, Article, Column, NewUser, Topic
+from .models import Comment, Article, Column, MyUser, Topic
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -18,8 +18,12 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ('content', 'pub_date', 'poll_num')
 
 
-class NewUserAdmin(admin.ModelAdmin):
-    list_display = ('username','date_joined', 'profile')
+# class NewUserAdmin(admin.ModelAdmin):
+#     list_display = ('username','date_joined', 'profile')
+
+
+class MyUserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'desc')
 
 
 class ColumnAdmin(admin.ModelAdmin):
@@ -33,5 +37,5 @@ class TopicAdmin(admin.ModelAdmin):
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Column, ColumnAdmin)
-admin.site.register(NewUser, NewUserAdmin)
+admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Topic, TopicAdmin)

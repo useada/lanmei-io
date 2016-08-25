@@ -1,6 +1,7 @@
 {% include "header.html" %}
 
 <div class="container-fluid">
+    <div class="col-sm-1"></div>
     <!-- Center Column -->
     <div class="col-sm-9">
         <!-- Articles -->
@@ -10,20 +11,26 @@
 {#                    Picture#}
 {#                </div>#}
                 <article class="col-xs-12">
-                    <a class="text-success" href="#">{{ article.author }}</a> . {{ article.author.profile }}
+                    <a href="#"><b class="text-primary">{{ article.author }}</b></a>
+                    <span class="text-muted">. {{ article.author.profile }}</span>
+                    <span class="text-muted">{{ article.pub_date | date:"j M" }}</span>
+
+                    <br>
+                    <span class="text-muted">
+                    <a href="/focus/{{ article.topic_id }}">
+                        {{ article.topic.content|truncatechars_html:80 | safe }}
+                    </a>
+                    </span>
                     <br>
 
-                    <a href="/focus/{{ article.topic_id }}">
-                        <h3>
-                            {{ article.content|truncatechars_html:80 | safe }}
-                        </h3>
-                    </a>
+                    <p class="h4">
+                        {{ article.content|truncatechars_html:80 | safe }}
+                    </p>
                     <br>
-{#                    <p class="pull-right"><a class="small" href="/focus/{{ article.topic_id }}">点击进入</a></p>#}
+
                     <ul class="list-inline small">
-                        <li><span>{{ article.pub_date | date:"j M" }}</span></li>
-                        <li><span><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</span></li>
-                        <li><span><span class="glyphicon glyphicon-star-empty"></span>{{ article.keep_num }} 赞</span></li>
+                        <li><span class="text-muted"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</span></li>
+                        <li><span class="text-muted"><span class="glyphicon glyphicon-star-empty"></span>{{ article.keep_num }} 赞</span></li>
                     </ul>
                 </article>
             </div>
@@ -33,8 +40,9 @@
 
 
     <!-- Right Column -->
-    {% include "righter.html" %}
+{#    {% include "righter.html" %}#}
 
+<div class="col-sm-2"></div>
 </div><!--/container-fluid-->
 
 {% include "footer.html" %}

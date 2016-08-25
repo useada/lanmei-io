@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Topic, Article, Comment, Poll, NewUser
+from .models import Topic, Article, Comment, Poll, MyUser
 from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm, ArticleForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -21,6 +21,16 @@ def index(request):
     login_form = LoginForm()
     context = {'latest_article_list': latest_article_list, 'login_form': login_form}
     return render(request, 'index.html', context)
+
+
+def helper(request):
+    return render(request, 'helper.html', {})
+
+
+def topic_list(request):
+    latest_topic_list = Topic.objects.query_by_time()
+    context = {'latest_topic_list': latest_topic_list}
+    return render(request, 'topic_list.html', context)
 
 
 def topic_handler(request, topic_id, article_page=1):
@@ -47,6 +57,8 @@ def topic_handler(request, topic_id, article_page=1):
 
     topic.article_page = article_page
     topic.total_article_page = article_paginator.num_pages
+
+    # article_list.count()
 
     return render(request, 'topic_page.html', {
         'topic': topic,
@@ -161,27 +173,27 @@ def del_comment(request, topic_id, article_id, comment_id):
 
 
 # submit article for topic
-def article_handler(request, topic_id):
-    # try:   # since visitor input a url with invalid id
-    #     article = Article.objects.get(pk=article_id)  # pk???
-    # except Article.DoesNotExist:
-    #     raise Http404("Article does not exist")
-    topic = get_object_or_404(Topic, id=topic_id)
-
-    article = get_object_or_404(Article, id=article_id)
-    content = markdown2.markdown(article.content, extras=["code-friendly",
-        "fenced-code-blocks", "header-ids", "toc", "metadata"])
-    commentform = CommmentForm()
-    loginform = LoginForm()
-    comments = article.comment_set.all
-
-    return render(request, 'article_page.html', {
-        'article': article,
-        'loginform':loginform,
-        'commentform':commentform,
-        'content': content,
-        'comments': comments
-        })
+# def article_handler(request, topic_id):
+#     # try:   # since visitor input a url with invalid id
+#     #     article = Article.objects.get(pk=article_id)  # pk???
+#     # except Article.DoesNotExist:
+#     #     raise Http404("Article does not exist")
+#     topic = get_object_or_404(Topic, id=topic_id)
+#
+#     article = get_object_or_404(Article, id=article_id)
+#     content = markdown2.markdown(article.content, extras=["code-friendly",
+#         "fenced-code-blocks", "header-ids", "toc", "metadata"])
+#     commentform = CommmentForm()
+#     loginform = LoginForm()
+#     comments = article.comment_set.all
+#
+#     return render(request, 'article_page.html', {
+#         'article': article,
+#         'loginform':loginform,
+#         'commentform':commentform,
+#         'content': content,
+#         'comments': comments
+#         })
 
 
 @login_required
@@ -197,6 +209,7 @@ def get_keep(request, article_id):
     else:
         url = urlparse.urljoin('/focus/', article_id)
         return redirect(url)
+
 
 @login_required
 def get_poll_article(request,article_id):
@@ -226,9 +239,9 @@ def log_in(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['uid']
-            password = form.cleaned_data['pwd']
-            user = authenticate(email=email, password=password)
+            email = form.cleaned_data['email']
+            pwd = form.cleaned_data['pwd']
+            user = authenticate(email=email, password=pwd)
             if user is not None:
                 login(request, user)
                 url = request.POST.get('source_url','/focus')
@@ -239,12 +252,14 @@ def log_in(request):
         else:
             return render(request, 'login.html', {'form': form})
 
+
 @login_required
 def log_out(request):
 
     url = request.POST.get('source_url', '/focus/')
     logout(request)
     return redirect(url)
+
 
 def register(request):
     error1 = "this name is already exist"
@@ -255,9 +270,10 @@ def register(request):
         return render(request, 'register.html', {'form': form})
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-        if request.POST.get('raw_username', 'erjgiqfv240hqp5668ej23foi') != 'erjgiqfv240hqp5668ej23foi':  # if ajax
+        raw_username = request.POST.get('raw_username', 'erjgiqfv240hqp5668ej23foi')
+        if raw_username != 'erjgiqfv240hqp5668ej23foi':  # if ajax
             try:
-                user = NewUser.objects.get(username=request.POST.get('raw_username', ''))
+                user = MyUser.objects.get(username=raw_username)
             except ObjectDoesNotExist:
                 return render(request, 'register.html', {'form': form, 'msg': valid})
             else:
@@ -267,13 +283,11 @@ def register(request):
             if form.is_valid():
                 username = form.cleaned_data['username']
                 email = form.cleaned_data['email']
-                password1 = form.cleaned_data['password1']
-                # password2 = form.cleaned_data['password2']
-                # if password1 != password2:
-                #     return render(request, 'register.html', {'form': form, 'msg': "two password is not equal"})
-                # else:
-                user = NewUser(username=username, email=email, password=password1)
-                user.save()
+                password = form.cleaned_data['pwd']
+                try:
+                    user = MyUser.objects.create_user(email, username, password)
+                except:
+                    pass
                 # return render(request, 'login.html', {'success': "you have successfully registered!"})
                 return redirect('/focus/login')
             else:
