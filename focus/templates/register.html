@@ -4,7 +4,27 @@
     <!-- Center Column -->
     <div class="col-sm-4">
 
-        <h2>在这里注册成为蓝莓用户</h2>
+        {#        <h2>在这里注册成为蓝莓用户</h2>#}
+
+        <div class="row">
+            <div class="col-sm-12">
+                {% load staticfiles %}
+                <img src="{% static "img/lanmei-show.jpg" %}" alt="..." class="img-responsive center-block">
+            </div>
+        </div>
+        <hr>
+
+        {% if error %}
+            {#            <div class="alert alert-danger" role="alert">#}
+            {#                <span>用户名和密码不匹配,请检查后输入</span>#}
+            {#            </div>#}
+
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>用户名和密码不匹配</strong>
+            </div>
+        {% endif %}
+
         <p>{{ msg }}</p>
         <form  method="post" >
             {% csrf_token %}
@@ -63,7 +83,7 @@
                 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
             </div>
 
-            <input class="btn btn-info pull-right" type="submit" value="提交" />
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="提交" />
         </form>
 
 

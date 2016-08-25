@@ -8,8 +8,23 @@
 {#        <h2>login page</h2>#}
 {#        <p>{{ error }}</p>#}
 
+    <div class="row">
+        <div class="col-sm-12">
+            {% load staticfiles %}
+            <img src="{% static "img/lanmei-show.jpg" %}" alt="..." class="img-responsive center-block">
+        </div>
+    </div>
+        <hr>
+
         {% if error %}
-            <p class="bg-danger">用户名和密码不匹配,请检查后输入</p>
+{#            <div class="alert alert-danger" role="alert">#}
+{#                <span>用户名和密码不匹配,请检查后输入</span>#}
+{#            </div>#}
+
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>用户名和密码不匹配</strong>
+            </div>
         {% endif %}
 
         <form action="" method="post">
@@ -36,7 +51,7 @@
 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
             </div>
 
-            <input class="btn btn-info pull-right" type="submit" value="登录" />
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="登录" />
         </form>
 
     </div><!--/Center Column-->
