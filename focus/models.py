@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
             if kwargs.get('uid', None): user.uid=kwargs['uid']
             if kwargs.get('access_token', None): user.access_token=kwargs['access_token']
             if kwargs.get('url', None): user.url=kwargs['url']
-            if kwargs.get('profile', None): user.desc=kwargs['profile']
+            if kwargs.get('profile', None): user.profile=kwargs['profile']
             if kwargs.get('avatar', None): user.avatar=kwargs['avatar']
 
         user.save(using=self._db)
@@ -204,9 +204,10 @@ class Topic(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
     update_date = models.DateTimeField(auto_now=True, null=True)
     published = models.BooleanField('notDraft', default=True)
-    poll_num = models.IntegerField(default=0)
+    article_num = models.IntegerField(default=0)
     comment_num = models.IntegerField(default=0)
-    # keep_num = models.IntegerField(default=0)
+    poll_num = models.IntegerField(default=0)
+    keep_num = models.IntegerField(default=0)
 
     def __str__(self):
         return self.content
@@ -221,15 +222,15 @@ class Topic(models.Model):
 @python_2_unicode_compatible
 class Article(models.Model):
     topic = models.ForeignKey(Topic, blank=True, null=True, verbose_name='belong to')
-    # title = models.CharField(max_length=256)
-    author = models.ForeignKey('MyUser')
-    # user = models.ManyToManyField('NewUser', blank=True)
+    author = models.ForeignKey('MyUser', blank=True)
     content = models.TextField('content')
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
     update_time = models.DateTimeField(auto_now=True, null=True)
     published = models.BooleanField('notDraft', default=True)
-    poll_num = models.IntegerField(default=0)
     comment_num = models.IntegerField(default=0)
+    # 投票
+    poll_num = models.IntegerField(default=0)
+    # 收藏
     keep_num = models.IntegerField(default=0)
 
     def __str__(self):
@@ -245,6 +246,7 @@ class Article(models.Model):
 @python_2_unicode_compatible
 class Comment(models.Model):
     author = models.ForeignKey('MyUser', null=True)
+    refer_to = models.ForeignKey('MyUser', related_name="refer_to", null=True)
     article = models.ForeignKey(Article, null=True)
     content = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
@@ -252,16 +254,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-
-
-# class Author(models.Model):
-#     name = models.CharField(max_length=256)
-#     profile = models.CharField('profile', default='', max_length=256)
-#     password = models.CharField('password', max_length=256)
-#     register_date = models.DateTimeField(auto_now_add=True, editable=True)
-#
-#     def __str__(self):
-#         return self.name
 
 
 class Poll(models.Model):

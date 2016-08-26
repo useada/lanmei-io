@@ -20,4 +20,7 @@ urlpatterns = [
     url(r'^del_comment/(?P<topic_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<comment_id>[0-9]+)/$', views.del_comment, name='del_comment'),
 
     url(r'^comment/(?P<topic_id>[0-9]+)/(?P<article_id>[0-9]+)/(?P<comment_page>[0-9]+)/$', views.comment_handler, name='comment'),
+
+
+    url(r'^poll/(?P<topic_id>[0-9]+)/(?P<article_id>[0-9]+)/$', views.poll_handler, name='poll_handler'),
 ]

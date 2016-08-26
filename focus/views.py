@@ -102,7 +102,6 @@ def comment_handler(request, topic_id, article_id, comment_page):
     })
 
 
-
 @login_required
 def add_article(request, topic_id):
     form = ArticleForm(request.POST)
@@ -113,6 +112,8 @@ def add_article(request, topic_id):
         content = form.cleaned_data['content']
         article = Article(topic=topic, author=user, content=content)
         article.save()
+        topic.article_num += 1
+        topic.save()
     return redirect(url)
 
 
@@ -126,18 +127,20 @@ def edit_article(request, topic_id, article_id):
         article.content = form.cleaned_data['content']
         # article = Article(topic=topic, author=user, content=content)
         article.save()
-    return HttpResponse("ok");
+    return HttpResponse("ok")
 
 
 @login_required
 def del_article(request, topic_id, article_id):
-    # topic = get_object_or_404(Topic, id=topic_id)
+    topic = get_object_or_404(Topic, id=topic_id)
     article = get_object_or_404(Article, id=article_id)
 
     if article.author_id != request.user.id:
         pass
     else:
         Article.delete(article)
+        topic.article_num -= 1
+        topic.save()
     url = urlparse.urljoin('/focus/', topic_id)
     return redirect(url)
 
@@ -174,64 +177,38 @@ def del_comment(request, topic_id, article_id, comment_id):
     return redirect(url)
 
 
-# submit article for topic
-# def article_handler(request, topic_id):
-#     # try:   # since visitor input a url with invalid id
-#     #     article = Article.objects.get(pk=article_id)  # pk???
-#     # except Article.DoesNotExist:
-#     #     raise Http404("Article does not exist")
-#     topic = get_object_or_404(Topic, id=topic_id)
-#
-#     article = get_object_or_404(Article, id=article_id)
-#     content = markdown2.markdown(article.content, extras=["code-friendly",
-#         "fenced-code-blocks", "header-ids", "toc", "metadata"])
-#     commentform = CommmentForm()
-#     loginform = LoginForm()
-#     comments = article.comment_set.all
-#
-#     return render(request, 'article_page.html', {
-#         'article': article,
-#         'loginform':loginform,
-#         'commentform':commentform,
-#         'content': content,
-#         'comments': comments
-#         })
-
-
 @login_required
-def get_keep(request, article_id):
+def poll_handler(request, topic_id, article_id):
+    article = get_object_or_404(Article, id=article_id)
     logged_user = request.user
-    article = Article.objects.get(id=article_id)
-    articles = logged_user.article_set.all()
-    if article not in articles:
-        article.user.add(logged_user)  # for m2m linking, have tested by shell
-        article.keep_num += 1
-        article.save()
-        return redirect('/focus/')
-    else:
-        url = urlparse.urljoin('/focus/', article_id)
-        return redirect(url)
-
-
-@login_required
-def get_poll_article(request,article_id):
-    logged_user = request.user
-    article = Article.objects.get(id=article_id)
     polls = logged_user.poll_set.all()
     articles = []
     for poll in polls:
         articles.append(poll.article)
 
     if article in articles:
-        url = urlparse.urljoin('/focus/', article_id)
-        return redirect(url)
+        return HttpResponse(str(article.poll_num))
     else:
         article.poll_num += 1
         article.save()
         poll = Poll(user=logged_user, article=article)
         poll.save()
-        data = {}
-        return redirect('/focus/')
+        return HttpResponse(str(article.poll_num))
+
+
+# @login_required
+# def get_keep(request, article_id):
+#     logged_user = request.user
+#     article = Article.objects.get(id=article_id)
+#     articles = logged_user.article_set.all()
+#     if article not in articles:
+#         article.user.add(logged_user)  # for m2m linking, have tested by shell
+#         article.keep_num += 1
+#         article.save()
+#         return redirect('/focus/')
+#     else:
+#         url = urlparse.urljoin('/focus/', article_id)
+#         return redirect(url)
 
 
 def log_in(request):

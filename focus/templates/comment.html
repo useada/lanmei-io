@@ -1,4 +1,4 @@
-
+{% load myfilter %}
 
     <!-- Comments -->
     <div class="pagination panel panel-default">
@@ -29,7 +29,12 @@
                             </a>
                         </div>
                     {% endif %}
-                    <div><b>{{ article.author }}</b> <br> {{ comment.content | safe }}</div>
+                    <div><a class="h5">{{ comment.author }}</a>
+                        <br><br>
+                        <p>{{ comment.content | safe }}</p>
+                        <small>{{ comment.pub_date|my_date }}</small>
+
+                    </div>
                 </article>
             {% endfor %}
 

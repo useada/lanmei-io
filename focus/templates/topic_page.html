@@ -21,17 +21,7 @@
 
                     <div>
                         <div class="btn-group-vertical" role="group" aria-label="...">
-                            <button type="button" class="btn btn-default">
-                                <div class="row">
-                                    <div class="col-sm-12"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"style="color: rgb(64, 212, 64);"></span></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12"><span class="count">2418</span></div>
-                                </div>
-                            </button>
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true" style="color: rgb(212, 106, 64);"></span>
-                            </button>
+                            <a id="article-{{ article.id }}-poll" poll-url="/focus/poll/{{ topic.id }}/{{ article.id }}/" href="javascript:void(0);"><h3 style="color: rgb(21, 51, 128);">赞</h3> <span id="article-{{ article.id }}-pollnum" class="badge">{{ article.poll_num }}</span></a>
                         </div>
                     </div>
 
@@ -190,6 +180,15 @@
             });
 
 
+    $("a[poll-url]").click(function() {
+        var $this = $(this);
+        var url = $this.attr("poll-url");
+        if (url) {
+            $.get(url, {}, function(data){ $('#article-{{ article.id }}-pollnum').html(data); });
+        }
+
+        return false;
+    });
 </script>
 
 
