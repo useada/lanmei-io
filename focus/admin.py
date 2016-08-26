@@ -23,7 +23,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class MyUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'desc')
+    list_display = ('username', 'profile')
 
 
 class ColumnAdmin(admin.ModelAdmin):

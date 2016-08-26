@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
             if kwargs.get('uid', None): user.uid=kwargs['uid']
             if kwargs.get('access_token', None): user.access_token=kwargs['access_token']
             if kwargs.get('url', None): user.url=kwargs['url']
-            if kwargs.get('desc', None): user.desc=kwargs['desc']
+            if kwargs.get('profile', None): user.desc=kwargs['profile']
             if kwargs.get('avatar', None): user.avatar=kwargs['avatar']
 
         user.save(using=self._db)
@@ -65,9 +65,9 @@ class MyUser(AbstractBaseUser):
     uid = models.CharField(max_length=50, null=True)				# weibo uid
     access_token = models.CharField(max_length=100, null=True)		# weibo access_token
     url = models.URLField(null=True)							    # 个人站点
-    desc = models.CharField(max_length=2000, null=True)		        # 个人信息简介
-    avatar = models.CharField(max_length=500, null=True)		    # 头像
-    # date_joined = models.DateTimeField(auto_now=True)
+    profile = models.CharField(max_length=200, null=True)		        # 个人信息简介
+    avatar = models.CharField(max_length=200, null=True)		    # 头像
+    date_joined = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

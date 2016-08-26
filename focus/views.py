@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Topic, Article, Comment, Poll, MyUser
 from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm, ArticleForm
@@ -283,9 +285,10 @@ def register(request):
             if form.is_valid():
                 username = form.cleaned_data['username']
                 email = form.cleaned_data['email']
+                profile = form.cleaned_data['profile']
                 password = form.cleaned_data['pwd']
                 try:
-                    user = MyUser.objects.create_user(email, username, password)
+                    user = MyUser.objects.create_user(email, username, password, None, profile=profile)
                 except:
                     pass
                 # return render(request, 'login.html', {'success': "you have successfully registered!"})

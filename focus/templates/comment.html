@@ -41,7 +41,7 @@
                             <div class="input-group">
                                 <input id="article-{{ article.id }}-add-comment-content" name="content" type="text" class="form-control" placeholder="您的评论">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit" id="submit">添加评论</button>
+                                    <button class="btn btn-default" type="submit" id="submit">添加</button>
                                 </span>
                             </div><!-- /input-group -->
                         </div><!-- /.col-xs-12 -->
@@ -74,7 +74,7 @@
         prev: "上页",
         next: "下页",
         last: "末页",
-        paginationClass: "pagination center",
+        paginationClass: "pagination pagination-sm center",
         onPageClick: function (event, page) {
             $('#article-{{ article.id }}-comment').load("/focus/comment/{{ topic.id }}/{{ article.id }}/" + page);
         }
