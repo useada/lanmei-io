@@ -104,14 +104,13 @@
                 var edit_node=$('#article-{{ article.id }}-edit');
 
                 var cc = '<textarea id="article-{{ article.id }}-editor" placeholder="" autofocus></textarea>'
-                        + '<div class="pull-right">'
-                        + '<button id="article-{{ article.id }}-edit-cancel" type="button" class="btn btn-default btn-lg">取消</button>'
-                        + '<button id="article-{{ article.id }}-edit-submit" type="button" class="btn btn-primary btn-lg">提交</button>'
+                        + '<div class="row">'
+                        + '<div class="col-sm-6"><button id="article-{{ article.id }}-edit-submit" type="button" class="btn btn-primary btn btn-block">提交</button></div>'
+                        + '<div class="col-sm-6"><button id="article-{{ article.id }}-edit-cancel" type="button" class="btn btn-default btn btn-block">取消</button></div>'
                         + '</div>';
 
                 edit_node.html(cc);
 
-{#                var tt = $('#article-{{ article.id }}-editor');#}
                 if (door.is(':visible'))
                 {
                     door.hide();

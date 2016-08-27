@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db import models
 from django import forms
-from .models import Comment, Article, Column, MyUser, Topic
+from .models import Comment, Article, Column, MyUser, Topic, Status
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -34,8 +34,13 @@ class TopicAdmin(admin.ModelAdmin):
     list_display = ('author', 'update_date', 'poll_num')
 
 
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('name', 'curr_topic')
+
+
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Column, ColumnAdmin)
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Topic, TopicAdmin)
+admin.site.register(Status, StatusAdmin)

@@ -153,7 +153,7 @@ class TopicManager(models.Manager):
 
 class ArticleManager(models.Manager):
     def query_by_topic(self, topic_id):
-        query = self.get_queryset().filter(topic_id=topic_id)
+        query = self.get_queryset().filter(topic_id=topic_id).order_by('-poll_num')
         return query
 
     # def query_by_user(self, user_id):
@@ -162,7 +162,7 @@ class ArticleManager(models.Manager):
     #     return article_list
 
     def query_by_polls(self):
-        query = self.get_queryset().order_by('poll_num')
+        query = self.get_queryset().order_by('-poll_num')
         return query
 
     def query_by_time(self):
@@ -260,3 +260,19 @@ class Poll(models.Model):
     user = models.ForeignKey('MyUser', null=True)
     article = models.ForeignKey(Article, null=True)
     comment = models.ForeignKey(Comment, null=True)
+
+
+class StatusManager(models.Manager):
+    def get_current(self):
+        status = self.get(name="current")
+        return status
+
+
+@python_2_unicode_compatible
+class Status(models.Model):
+    name = models.CharField(max_length=36, unique=True, db_index=True)
+    curr_topic = models.ForeignKey(Topic, blank=True, null=True, verbose_name='current topic')
+    objects = StatusManager()
+
+    def __str__(self):
+        return self.name

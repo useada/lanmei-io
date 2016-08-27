@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Topic, Article, Comment, Poll, MyUser
+from .models import Topic, Article, Comment, Poll, MyUser, Status
 from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm, ArticleForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -19,9 +19,10 @@ import urlparse
 
 
 def index(request):
-    latest_article_list = Article.objects.query_by_time()
+    status = Status.objects.get_current()
+    top10_article_list = Article.objects.query_by_polls()[:10]
     login_form = LoginForm()
-    context = {'latest_article_list': latest_article_list, 'login_form': login_form}
+    context = { 'status': status, 'top10_article_list': top10_article_list, 'login_form': login_form}
     return render(request, 'index.html', context)
 
 
