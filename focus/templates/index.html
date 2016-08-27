@@ -26,6 +26,7 @@
 
                     <div class="alert alert-success" role="alert">
                         {{ article.content|truncatechars_html:80 | safe }}
+                        <a href="/focus/{{ article.topic_id }}/#article-{{ article.id }}-box">点击阅读</a>
                     </div>
 
                     <ul class="list-inline small">
