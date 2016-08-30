@@ -4,12 +4,15 @@ from django import forms
 from models import MyUser
 from django.contrib.auth import authenticate, login, logout
 from random import random
+from captcha.fields import CaptchaField
 # from PIL import Image
 
 
 class LoginForm(forms.Form):
     email = forms.EmailField()
     pwd = forms.CharField()
+    captcha = CaptchaField()
+
 
     # email = forms.EmailField(label=u'email', max_length=100, widget=forms.TextInput(
     #     attrs={'class': 'form-control', 'placeholder': u'邮箱', 'required': '', 'autofocus': ''}
@@ -84,6 +87,7 @@ class RegisterForm(forms.Form):
     profile = forms.CharField(label=u'profile', max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': u'Profile', 'required': '', 'autofocus': ''}
     ), )
+    captcha = CaptchaField()
     # pwd2 = forms.CharField(label=u'密码(重复)', widget=forms.PasswordInput(
     #     attrs={'class': 'form-control', 'placeholder': u'重复密码', 'required': ''}
     #     )
@@ -126,6 +130,7 @@ class PasswordForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': u'密码长度在5-12位', 'required': ''}))
     password2 = forms.CharField(label=u'在输入一次', widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'placeholder': u'在输入一次', 'required': ''}))
+    captcha = CaptchaField()
 
     # def __init__(self, user=None, *args, **kwargs):
     #     self.user = user
@@ -206,7 +211,16 @@ class SetInfoForm(forms.Form):
     username = forms.CharField()
 
 
+class ArticleCaptchaForm(forms.Form):
+    content = forms.CharField(label='', widget=forms.Textarea(attrs={"id":"editor", "placeholder": u"写下你的文字", "autofocus":"autofocus"}))
+    captcha = CaptchaField()
+
+
 class ArticleForm(forms.Form):
+    content = forms.CharField(label='', widget=forms.Textarea(attrs={"id":"editor", "placeholder": u"写下你的文字", "autofocus":"autofocus"}))
+
+
+class ArticleEditForm(forms.Form):
     content = forms.CharField(label='', widget=forms.Textarea(attrs={"id":"editor", "placeholder": u"写下你的文字", "autofocus":"autofocus"}))
 
 

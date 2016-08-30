@@ -18,7 +18,7 @@
 {#            <hr>#}
 
             <div style="background-color:#f2f8ff; !important" class="jumbotron">
-                <h1 style="color: darkblue;">蓝莓</h1>
+                <h1 style="color: darkblue;">开心咖啡</h1>
                 <h2 style="color: #104c80;">写点有意思的文字</h2>
                 <h3 style="color: #104c80;">每期有一个主题, 围绕主题写故事</h3>
                 <br>
@@ -50,7 +50,7 @@
                         <span class="text-muted small">{{ article.pub_date|my_date }}</span>
                     </p>
 
-                    <div class="alert alert-success" role="alert">
+                    <div style="background-color: white;" class="alert alert-success" role="alert">
                         {{ article.content|truncatechars_html:80 | safe }}
                         <a href="/focus/{{ article.topic_id }}/#article-{{ article.id }}-box">点击阅读</a>
                     </div>

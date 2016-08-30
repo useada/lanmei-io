@@ -57,7 +57,7 @@
                 <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
                 <div class="input-group">
                     <span class="input-group-addon">邮箱</span>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="a@b.com" aria-describedby="inputGroupSuccess4Status">
+                    <input autocomplete="off" type="text" class="form-control" id="email" name="email" placeholder="a@b.com" aria-describedby="inputGroupSuccess4Status">
                 </div>
                 {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
                 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
@@ -67,7 +67,7 @@
                 <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
                 <div class="input-group">
                     <span class="input-group-addon">昵称</span>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="小楼" aria-describedby="inputGroupSuccess4Status">
+                    <input autocomplete="off" type="text" class="form-control" id="username" name="username" placeholder="小楼" aria-describedby="inputGroupSuccess4Status">
                 </div>
                 {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
                 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
@@ -77,7 +77,7 @@
                 <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
                 <div class="input-group">
                     <span class="input-group-addon">密码</span>
-                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="******" aria-describedby="inputGroupSuccess4Status">
+                    <input autocomplete="off" type="password" class="form-control" id="pwd" name="pwd" placeholder="******" aria-describedby="inputGroupSuccess4Status">
                 </div>
                 {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
                 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
@@ -87,11 +87,13 @@
                 <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
                 <div class="input-group">
                     <span class="input-group-addon">简介</span>
-                    <input type="text" class="form-control" id="profile" name="profile" placeholder="个人简介" aria-describedby="inputGroupSuccess4Status">
+                    <input autocomplete="off" type="text" class="form-control" id="profile" name="profile" placeholder="个人简介" aria-describedby="inputGroupSuccess4Status">
                 </div>
                 {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
                 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
             </div>
+
+            {{ form.captcha }}
 
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="提交" />
         </form>

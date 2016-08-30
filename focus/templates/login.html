@@ -31,6 +31,11 @@
             {% csrf_token %}
 {#            <p>{{ form.as_p }}</p>#}
 
+{#            <label for="id_captcha_1">Captcha:</label>#}
+{#            <img src="/captcha/image/38769600e2ef2e45a7258d3f593df8edb694fdeb/" alt="captcha" class="captcha"><input id="id_captcha_0" name="captcha_0" type="hidden" value="38769600e2ef2e45a7258d3f593df8edb694fdeb">#}
+{#            <input autocomplete="off" id="id_captcha_1" name="captcha_1" type="text">#}
+
+
             <div class="form-group has-success has-feedback">
               <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
               <div class="input-group">
@@ -50,6 +55,8 @@
 {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
             </div>
+
+            {{ form.captcha }}
 
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="登录" />
         </form>

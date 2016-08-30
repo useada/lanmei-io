@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Topic, Article, Comment, Poll, MyUser, Status
-from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm, ArticleForm
+from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm, ArticleForm, ArticleEditForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login, logout
@@ -120,7 +120,7 @@ def add_article(request, topic_id):
 
 @login_required
 def edit_article(request, topic_id, article_id):
-    form = ArticleForm(request.POST)
+    form = ArticleEditForm(request.POST)
     if form.is_valid():
         # user = request.user
         # topic = Topic.objects.get(id=topic_id)

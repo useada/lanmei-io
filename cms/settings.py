@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'focus',
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,6 +100,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+CAPTCHA_IMAGE_SIZE = (300, 40)
+
+CAPTCHA_FOREGROUND_COLOR = "#003311"
 
 
 # Static files (CSS, JavaScript, Images)
