@@ -14,7 +14,7 @@ from django.http import (
     Http404, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect,
 )
 
-import markdown2
+# import markdown2
 import urlparse
 
 
