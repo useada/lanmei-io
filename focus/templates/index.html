@@ -22,9 +22,11 @@
                 <h2 style="color: #104c80;">写点有意思的文字</h2>
                 <h3 style="color: #104c80;">每期有一个主题, 围绕主题写故事</h3>
                 <br>
+                {% if status %}
                 <p>
                     <span class="h3">本期主题:</span> <a href="/focus/{{ status.curr_topic.id }}/">{{ status.curr_topic.content }}</a>
                 </p>
+                {% endif %}
             </div>
         </div>
     </div>

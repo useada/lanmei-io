@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69495602-d3ea-441f-b2ff-fe1b2c46309a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms/settings.py" afterPath="$PROJECT_DIR$/cms/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms/urls.py" afterPath="$PROJECT_DIR$/cms/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/forms.py" afterPath="$PROJECT_DIR$/focus/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/header.html" afterPath="$PROJECT_DIR$/focus/templates/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/helper.html" afterPath="$PROJECT_DIR$/focus/templates/helper.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/admin.py" afterPath="$PROJECT_DIR$/focus/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/models.py" afterPath="$PROJECT_DIR$/focus/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/footer.html" afterPath="$PROJECT_DIR$/focus/templates/footer.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/index.html" afterPath="$PROJECT_DIR$/focus/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/login.html" afterPath="$PROJECT_DIR$/focus/templates/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/register.html" afterPath="$PROJECT_DIR$/focus/templates/register.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/topic_page.html" afterPath="$PROJECT_DIR$/focus/templates/topic_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/views.py" afterPath="$PROJECT_DIR$/focus/views.py" />
     </list>
     <ignored path="lanmei-io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,22 +31,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/focus/templates/register.html">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/focus/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/focus/templates/header.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="158" column="14" selection-start-line="158" selection-start-column="14" selection-end-line="158" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="304">
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding>
+                <element signature="e#25#89#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,10 +65,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/focus/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
+            <state relative-caret-position="316">
               <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding />
             </state>
@@ -101,14 +85,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/focus/views.py">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/focus/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="219" column="38" selection-start-line="219" selection-start-column="38" selection-end-line="219" selection-end-column="38" />
-              <folding>
-                <element signature="e#25#89#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-767">
+              <caret line="165" column="55" selection-start-line="165" selection-start-column="55" selection-end-line="165" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="footer.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/focus/templates/footer.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,8 +108,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cms/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+            <state relative-caret-position="202">
+              <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -126,19 +118,21 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+            <state relative-caret-position="266">
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="topic_page.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/focus/templates/topic_page.html">
+      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/focus/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="271" column="31" selection-start-line="271" selection-start-column="31" selection-end-line="271" selection-end-column="31" />
-              <folding />
+            <state relative-caret-position="380">
+              <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -161,14 +155,11 @@
       <list>
         <option value="$PROJECT_DIR$/focus/templates/righter.html" />
         <option value="$PROJECT_DIR$/focus/templates/help.html" />
-        <option value="$PROJECT_DIR$/focus/templates/footer.html" />
         <option value="$PROJECT_DIR$/focus/templatetags/myfilter.py" />
         <option value="$PROJECT_DIR$/focus/urls.py" />
         <option value="$PROJECT_DIR$/focus/templates/comment.html" />
         <option value="$PROJECT_DIR$/focus/static/css/custom.css" />
         <option value="$PROJECT_DIR$/focus/templates/topic_list.html" />
-        <option value="$PROJECT_DIR$/focus/admin.py" />
-        <option value="$PROJECT_DIR$/focus/models.py" />
         <option value="$PROJECT_DIR$/cms/urls.py" />
         <option value="$PROJECT_DIR$/captcha/templates/captcha/field.html" />
         <option value="$PROJECT_DIR$/captcha/templates/captcha/text_field.html" />
@@ -177,12 +168,15 @@
         <option value="$PROJECT_DIR$/focus/templates/topic_page.html" />
         <option value="$PROJECT_DIR$/focus/views.py" />
         <option value="$PROJECT_DIR$/focus/forms.py" />
-        <option value="$PROJECT_DIR$/cms/settings.py" />
         <option value="$PROJECT_DIR$/focus/templates/register.html" />
-        <option value="$PROJECT_DIR$/focus/templates/index.html" />
         <option value="$PROJECT_DIR$/focus/templates/header.html" />
         <option value="$PROJECT_DIR$/focus/templates/helper.html" />
         <option value="$PROJECT_DIR$/uwsgi.ini" />
+        <option value="$PROJECT_DIR$/cms/settings.py" />
+        <option value="$PROJECT_DIR$/focus/templates/index.html" />
+        <option value="$PROJECT_DIR$/focus/templates/footer.html" />
+        <option value="$PROJECT_DIR$/focus/admin.py" />
+        <option value="$PROJECT_DIR$/focus/models.py" />
       </list>
     </option>
   </component>
@@ -287,7 +281,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -652,14 +646,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/focus/templates/topic_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1235">
-          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/focus/templates/comment.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -704,6 +690,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -813,13 +800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focus/templates/footer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/focus/templatetags/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -890,26 +870,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focus/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3002">
-          <caret line="164" column="47" selection-start-line="164" selection-start-column="47" selection-end-line="164" selection-end-column="47" />
-          <folding>
-            <element signature="e#25#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/focus/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="44" column="38" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/captcha/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -944,14 +904,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cms/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/captcha/templates/captcha/hidden_field.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -965,16 +917,6 @@
         <state relative-caret-position="57">
           <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/focus/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="219" column="38" selection-start-line="219" selection-start-column="38" selection-end-line="219" selection-end-column="38" />
-          <folding>
-            <element signature="e#25#89#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1006,14 +948,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -1054,8 +988,68 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/focus/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
+        <state relative-caret-position="316">
           <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/focus/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#89#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/focus/templates/footer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django/db/models/fields/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="1181" column="17" selection-start-line="1181" selection-start-column="17" selection-end-line="1181" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/focus/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/focus/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-767">
+          <caret line="165" column="55" selection-start-line="165" selection-start-column="55" selection-end-line="165" selection-end-column="55" />
           <folding />
         </state>
       </provider>

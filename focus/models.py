@@ -23,10 +23,10 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         if kwargs:
             if kwargs.get('sex', None): user.sex = kwargs['sex']
-            if kwargs.get('is_active', None): user.is_active=kwargs['is_active']
-            if kwargs.get('uid', None): user.uid=kwargs['uid']
-            if kwargs.get('access_token', None): user.access_token=kwargs['access_token']
-            if kwargs.get('url', None): user.url=kwargs['url']
+            # if kwargs.get('is_active', None): user.is_active=kwargs['is_active']
+            # if kwargs.get('uid', None): user.uid=kwargs['uid']
+            # if kwargs.get('access_token', None): user.access_token=kwargs['access_token']
+            if kwargs.get('grade', None): user.url=kwargs['grade']
             if kwargs.get('profile', None): user.profile=kwargs['profile']
             if kwargs.get('avatar', None): user.avatar=kwargs['avatar']
 
@@ -37,8 +37,9 @@ class UserManager(BaseUserManager):
         user = self.create_user(email,
                                 password=password,
                                 username=username,
+                                grade=9,
                                 )
-        user.is_admin = True
+        # user.is_admin = True
         user.save(using=self._db)
         return user
 
@@ -51,60 +52,6 @@ class UserManager(BaseUserManager):
 
     def get_user_by_username(self, username):
         pass
-
-
-@python_2_unicode_compatible
-class MyUser(AbstractBaseUser):
-    """扩展User"""
-    email = models.EmailField(verbose_name='Email', max_length=255, unique=True, db_index=True)
-    username = models.CharField(max_length=50, unique=True, db_index=True)
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
-    type = models.IntegerField(default=0)				# 类型，0本站，1微博登录
-    sex = models.IntegerField(default=1)				# sex
-    uid = models.CharField(max_length=50, null=True)				# weibo uid
-    access_token = models.CharField(max_length=100, null=True)		# weibo access_token
-    url = models.URLField(null=True)							    # 个人站点
-    profile = models.CharField(max_length=200, null=True)		        # 个人信息简介
-    avatar = models.CharField(max_length=200, null=True)		    # 头像
-    date_joined = models.DateTimeField(auto_now=True)
-    objects = UserManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
-
-    def get_full_name(self):
-        # The user is identified by their email address
-        return self.email
-
-    def get_short_name(self):
-        # The user is identified by their email address
-        return self.email
-
-    def __unicode__(self):
-        return self.email
-
-    def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
-        return self.is_admin
-
-    def __str__(self):
-        return self.username
-
-    class Meta:
-        db_table = 'user'
 
 
 class CustomAuth(object):
@@ -174,12 +121,79 @@ class ArticleManager(models.Manager):
         return query
 
 
+class StatusManager(models.Manager):
+    def get_current(self):
+        try:
+            status = self.get(name="current")
+            return status
+        except:
+            return None
+
+
 # @python_2_unicode_compatible
 # class NewUser(AbstractUser):
 #     profile = models.CharField('profile', default='', max_length=256)
 #
 #     def __str__(self):
 #         return self.username
+
+
+@python_2_unicode_compatible
+class MyUser(AbstractBaseUser):
+    """扩展User"""
+    email = models.EmailField(verbose_name='Email', max_length=255, unique=True, db_index=True)
+    username = models.CharField(max_length=50, unique=True, db_index=True)
+    # is_active = models.BooleanField(default=True)
+    # is_admin = models.BooleanField(default=False)
+    status = models.IntegerField(default=0)             # 状态,　0:正常,　1:无效
+    grade = models.IntegerField(default=0)              # 级别,最低为0,最高为9
+    type = models.IntegerField(default=0)				# 类型，0本站，1微博登录
+    sex = models.IntegerField(default=0)				# sex, 0 female, 1 male
+    # uid = models.CharField(max_length=50, null=True)				# weibo uid
+    # access_token = models.CharField(max_length=100, null=True)		# weibo access_token
+    # url = models.URLField(null=True)							    # 个人站点
+    profile = models.CharField(max_length=200, null=True)		    # 个人信息简介
+    avatar = models.CharField(max_length=200, null=True)		    # 头像
+    date_joined = models.DateTimeField(auto_now=True, null=True)               # 加入时间
+    date_operate = models.DateTimeField(auto_now=True, null=True)              # 数据变化时间
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    def get_full_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def get_short_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def __unicode__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.grade >= 9
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        db_table = 'user'
 
 
 @python_2_unicode_compatible
@@ -200,14 +214,18 @@ class Column(models.Model):
 class Topic(models.Model):
     column = models.ForeignKey(Column, blank=True, null=True, verbose_name='belong to')
     author = models.ForeignKey('MyUser')
+    status = models.IntegerField(default=0)  # 状态,　0:正常,　1:无效
     content = models.CharField(max_length=256)
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
-    update_date = models.DateTimeField(auto_now=True, null=True)
-    published = models.BooleanField('notDraft', default=True)
+
+    # published = models.BooleanField('notDraft', default=True)
     article_num = models.IntegerField(default=0)
     comment_num = models.IntegerField(default=0)
     poll_num = models.IntegerField(default=0)
     keep_num = models.IntegerField(default=0)
+
+    date_operate = models.DateTimeField(auto_now=True, null=True)
+    user_operate = models.ForeignKey('MyUser', related_name="topic_operator", null=True)
 
     def __str__(self):
         return self.content
@@ -223,15 +241,19 @@ class Topic(models.Model):
 class Article(models.Model):
     topic = models.ForeignKey(Topic, blank=True, null=True, verbose_name='belong to')
     author = models.ForeignKey('MyUser', blank=True)
+    status = models.IntegerField(default=0)  # 状态,　0:正常,　1:无效
     content = models.TextField('content')
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
-    update_time = models.DateTimeField(auto_now=True, null=True)
-    published = models.BooleanField('notDraft', default=True)
+    # update_time = models.DateTimeField(auto_now=True, null=True)
+    # published = models.BooleanField('notDraft', default=True)
     comment_num = models.IntegerField(default=0)
     # 投票
     poll_num = models.IntegerField(default=0)
     # 收藏
     keep_num = models.IntegerField(default=0)
+
+    date_operate = models.DateTimeField(auto_now=True, null=True)
+    user_operate = models.ForeignKey('MyUser', related_name="article_operator", null=True)
 
     def __str__(self):
         return self.content
@@ -262,16 +284,10 @@ class Poll(models.Model):
     comment = models.ForeignKey(Comment, null=True)
 
 
-class StatusManager(models.Manager):
-    def get_current(self):
-        status = self.get(name="current")
-        return status
-
-
 @python_2_unicode_compatible
 class Status(models.Model):
     name = models.CharField(max_length=36, unique=True, db_index=True)
-    curr_topic = models.ForeignKey(Topic, blank=True, null=True, verbose_name='current topic')
+    curr_topic = models.ForeignKey(Topic, blank=True, null=True, related_name="curr_topic", verbose_name='current topic')
     objects = StatusManager()
 
     def __str__(self):

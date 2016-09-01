@@ -15,7 +15,7 @@ class ArticleAdmin(admin.ModelAdmin):
                                   'cols': 100
                                   })}, 
     }
-    list_display = ('content', 'pub_date', 'poll_num')
+    list_display = ('content', 'pub_date', 'poll_num', 'date_operate', 'user_operate')
 
 
 # class NewUserAdmin(admin.ModelAdmin):
@@ -23,7 +23,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class MyUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'profile')
+    list_display = ('email', 'username', 'profile')
 
 
 class ColumnAdmin(admin.ModelAdmin):
@@ -31,7 +31,7 @@ class ColumnAdmin(admin.ModelAdmin):
 
 
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ('author', 'update_date', 'poll_num')
+    list_display = ('author', 'pub_date', 'poll_num')
 
 
 class StatusAdmin(admin.ModelAdmin):
