@@ -217,6 +217,7 @@ def log_in(request):
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
     if request.method == 'POST':
+        msg = "error"
         form = LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
@@ -227,10 +228,10 @@ def log_in(request):
                 url = request.POST.get('source_url','/focus')
                 return redirect(url)
             else:
-                return render(request,'login.html', {'form':form, 'error': "password or username is not ture!"})
-
+                msg = "mismatch"
+                return render(request,'login.html', {'form': form, 'msg': msg})
         else:
-            return render(request, 'login.html', {'form': form})
+            return render(request, 'login.html', {'form': form, 'msg': msg})
 
 
 @login_required
@@ -242,8 +243,8 @@ def log_out(request):
 
 
 def register(request):
-    error1 = "this name is already exist"
-    valid = "this name is valid"
+    error = "username exist"
+    valid = "username invalid"
 
     if request.method == 'GET':
         form = RegisterForm()
@@ -257,21 +258,28 @@ def register(request):
             except ObjectDoesNotExist:
                 return render(request, 'register.html', {'form': form, 'msg': valid})
             else:
-                return render(request, 'register.html', {'form': form, 'msg': error1})
+                return render(request, 'register.html', {'form': form, 'msg': error})
 
         else:
+            msg = "error"
             if form.is_valid():
                 username = form.cleaned_data['username']
                 email = form.cleaned_data['email']
                 profile = form.cleaned_data['profile']
                 password = form.cleaned_data['pwd']
                 try:
-                    user = MyUser.objects.create_user(email, username, password, None, profile=profile)
+                    if MyUser.objects.filter(username=username).exists():
+                        msg = "username exist"
+                    elif MyUser.objects.filter(email=email).exists():
+                        msg = "email exist"
+                    else:
+                        MyUser.objects.create_user(email, username, password, None, profile=profile)
+                        msg = "success"
                 except:
                     pass
-                # return render(request, 'login.html', {'success': "you have successfully registered!"})
-                return redirect('/focus/login')
+                # return redirect('/focus/login')
+                return render(request, 'register.html', {'form': form, 'msg': msg})
             else:
-                return render(request, 'register.html', {'form': form})
+                return render(request, 'register.html', {'form': form, 'msg': msg})
 
 

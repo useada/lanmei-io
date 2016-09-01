@@ -84,8 +84,8 @@ class RegisterForm(forms.Form):
     pwd = forms.CharField(label=u'pwd', widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'placeholder': u'密码', 'required': ''}
         ))
-    profile = forms.CharField(label=u'profile', max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': u'Profile', 'required': '', 'autofocus': ''}
+    profile = forms.CharField(label=u'profile', required=False, max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': u'Profile', 'autofocus': ''}
     ), )
     captcha = CaptchaField()
     # pwd2 = forms.CharField(label=u'密码(重复)', widget=forms.PasswordInput(

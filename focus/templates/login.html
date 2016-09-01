@@ -5,55 +5,52 @@
     <!-- Center Column -->
     <div class="col-sm-4">
 
-{#        <h2>login page</h2>#}
-{#        <p>{{ error }}</p>#}
-
-    <div class="row">
-        <div class="col-sm-12">
-            {% load staticfiles %}
-            <img src="{% static "img/lanmei-show.jpg" %}" alt="..." class="img-responsive center-block">
+        <div class="row">
+            <div class="col-sm-12">
+                {% load staticfiles %}
+                <img src="{% static "img/lanmei-show.jpg" %}" alt="..." class="img-responsive center-block">
+            </div>
         </div>
-    </div>
         <hr>
 
-        {% if error %}
-{#            <div class="alert alert-danger" role="alert">#}
-{#                <span>用户名和密码不匹配,请检查后输入</span>#}
-{#            </div>#}
-
+        {% if msg %}
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>用户名和密码不匹配</strong>
+                {% if msg == "mismatch" %}
+                    <strong>用户名和密码不匹配</strong>
+                {% elif msg == "error" %}
+                    <strong>请输入正确的验证码</strong>
+                {% endif %}
             </div>
         {% endif %}
 
         <form action="" method="post">
             {% csrf_token %}
-{#            <p>{{ form.as_p }}</p>#}
+            {#            <p>{{ form.as_p }}</p>#}
 
-{#            <label for="id_captcha_1">Captcha:</label>#}
-{#            <img src="/captcha/image/38769600e2ef2e45a7258d3f593df8edb694fdeb/" alt="captcha" class="captcha"><input id="id_captcha_0" name="captcha_0" type="hidden" value="38769600e2ef2e45a7258d3f593df8edb694fdeb">#}
-{#            <input autocomplete="off" id="id_captcha_1" name="captcha_1" type="text">#}
+            {#            <label for="id_captcha_1">Captcha:</label>#}
+            {#            <img src="/captcha/image/38769600e2ef2e45a7258d3f593df8edb694fdeb/" alt="captcha" class="captcha"><input id="id_captcha_0" name="captcha_0" type="hidden" value="38769600e2ef2e45a7258d3f593df8edb694fdeb">#}
+            {#            <input autocomplete="off" id="id_captcha_1" name="captcha_1" type="text">#}
 
 
             <div class="form-group has-success has-feedback">
-              <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
-              <div class="input-group">
-                <span class="input-group-addon">邮箱</span>
-                <input type="text" class="form-control" id="email" name="email" placeholder="a@b.com" aria-describedby="inputGroupSuccess4Status">
-              </div>
-{#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
-{#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                <div class="input-group">
+                    <span class="input-group-addon">邮箱</span>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="a@b.com" aria-describedby="inputGroupSuccess4Status">
+                </div>
+                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
             </div>
 
             <div class="form-group has-success has-feedback">
-              <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
-              <div class="input-group">
-                <span class="input-group-addon">密码</span>
-                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="******" aria-describedby="inputGroupSuccess4Status">
-              </div>
-{#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
-{#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                <div class="input-group">
+                    <span class="input-group-addon">密码</span>
+                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="******" aria-describedby="inputGroupSuccess4Status">
+                </div>
+                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
             </div>
 
             {{ form.captcha }}

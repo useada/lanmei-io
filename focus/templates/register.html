@@ -4,8 +4,6 @@
     <!-- Center Column -->
     <div class="col-sm-4">
 
-        {#        <h2>在这里注册成为蓝莓用户</h2>#}
-
         <div class="row">
             <div class="col-sm-12">
                 {% load staticfiles %}
@@ -14,90 +12,101 @@
         </div>
         <hr>
 
-        {% if error %}
-            {#            <div class="alert alert-danger" role="alert">#}
-            {#                <span>用户名和密码不匹配,请检查后输入</span>#}
-            {#            </div>#}
 
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>用户名和密码不匹配</strong>
+
+        {% if msg != "success" %}
+
+            {% if msg %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {% if msg == "username exist" %}
+                        <strong>用户名已经存在,请重新填写</strong>
+                    {% elif msg == "email exist" %}
+                        <strong>邮件已经存在,请重新填写</strong>
+                    {% elif msg == "error" %}
+                        <strong>请输入正确的验证码</strong>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <form  method="post" >
+                {% csrf_token %}
+                {#	{{ form.non_field_errors }}#}
+                {#	<div class="username">#}
+                {#	{{ form.username.errors }}#}
+                {#	<p> username: {{ form.username }}</p>	#}
+                {#	</div>#}
+                {#	{% csrf_token %} #}
+                {#	<div class="email">#}
+                {#	{{ form.email.errors }}#}
+                {#	<p> email: {{ form.email }}</p>  	#}
+                {#	</div>#}
+                {##}
+                {#	<div class="password1">#}
+                {#	{{ form.password1.errors }}#}
+                {#	<p> password:</p>#}
+                {#	{{ form.password1 }}#}
+                {#	</div>#}
+                {##}
+                {#	<div class="password2">#}
+                {#	{{ form.password2.errors }}#}
+                {#	<p> repassword:</p>#}
+                {#	{{ form.password2 }}#}
+                {#	</div>#}
+
+
+
+                <div class="form-group has-success has-feedback">
+                    <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">邮箱</span>
+                        <input autocomplete="off" type="text" class="form-control" id="email" name="email" placeholder="a@b.com" aria-describedby="inputGroupSuccess4Status">
+                    </div>
+                    {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                    {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+                </div>
+
+                <div class="form-group has-success has-feedback">
+                    <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">昵称</span>
+                        <input autocomplete="off" type="text" class="form-control" id="username" name="username" placeholder="小楼" aria-describedby="inputGroupSuccess4Status">
+                    </div>
+                    {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                    {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+                </div>
+
+                <div class="form-group has-success has-feedback">
+                    <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">密码</span>
+                        <input autocomplete="off" type="password" class="form-control" id="pwd" name="pwd" placeholder="******" aria-describedby="inputGroupSuccess4Status">
+                    </div>
+                    {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                    {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+                </div>
+
+                <div class="form-group has-success has-feedback">
+                    <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">简介</span>
+                        <input autocomplete="off" type="text" class="form-control" id="profile" name="profile" placeholder="个人简介" aria-describedby="inputGroupSuccess4Status">
+                    </div>
+                    {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+                    {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
+                </div>
+
+                {{ form.captcha }}
+
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="提交" />
+            </form>
+        {% else %}
+
+            <div class="alert alert-success" role="alert">
+                恭喜注册成为开心咖啡用户,请点击 <a href="/focus/login/" class="alert-link">登录</a>
             </div>
+
         {% endif %}
-
-        <p>{{ msg }}</p>
-        <form  method="post" >
-            {% csrf_token %}
-            {#	{{ form.non_field_errors }}#}
-            {#	<div class="username">#}
-            {#	{{ form.username.errors }}#}
-            {#	<p> username: {{ form.username }}</p>	#}
-            {#	</div>#}
-            {#	{% csrf_token %} #}
-            {#	<div class="email">#}
-            {#	{{ form.email.errors }}#}
-            {#	<p> email: {{ form.email }}</p>  	#}
-            {#	</div>#}
-            {##}
-            {#	<div class="password1">#}
-            {#	{{ form.password1.errors }}#}
-            {#	<p> password:</p>#}
-            {#	{{ form.password1 }}#}
-            {#	</div>#}
-            {##}
-            {#	<div class="password2">#}
-            {#	{{ form.password2.errors }}#}
-            {#	<p> repassword:</p>#}
-            {#	{{ form.password2 }}#}
-            {#	</div>#}
-
-
-
-            <div class="form-group has-success has-feedback">
-                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
-                <div class="input-group">
-                    <span class="input-group-addon">邮箱</span>
-                    <input autocomplete="off" type="text" class="form-control" id="email" name="email" placeholder="a@b.com" aria-describedby="inputGroupSuccess4Status">
-                </div>
-                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
-                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
-            </div>
-
-            <div class="form-group has-success has-feedback">
-                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
-                <div class="input-group">
-                    <span class="input-group-addon">昵称</span>
-                    <input autocomplete="off" type="text" class="form-control" id="username" name="username" placeholder="小楼" aria-describedby="inputGroupSuccess4Status">
-                </div>
-                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
-                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
-            </div>
-
-            <div class="form-group has-success has-feedback">
-                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
-                <div class="input-group">
-                    <span class="input-group-addon">密码</span>
-                    <input autocomplete="off" type="password" class="form-control" id="pwd" name="pwd" placeholder="******" aria-describedby="inputGroupSuccess4Status">
-                </div>
-                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
-                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
-            </div>
-
-            <div class="form-group has-success has-feedback">
-                <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
-                <div class="input-group">
-                    <span class="input-group-addon">简介</span>
-                    <input autocomplete="off" type="text" class="form-control" id="profile" name="profile" placeholder="个人简介" aria-describedby="inputGroupSuccess4Status">
-                </div>
-                {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
-                {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
-            </div>
-
-            {{ form.captcha }}
-
-            <input class="btn btn-primary btn-lg btn-block" type="submit" value="提交" />
-        </form>
-
 
 
     </div><!--/Center Column-->
