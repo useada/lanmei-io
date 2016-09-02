@@ -25,10 +25,10 @@ class UserManager(BaseUserManager):
             if kwargs.get('sex', None): user.sex = kwargs['sex']
             # if kwargs.get('is_active', None): user.is_active=kwargs['is_active']
             # if kwargs.get('uid', None): user.uid=kwargs['uid']
-            # if kwargs.get('access_token', None): user.access_token=kwargs['access_token']
-            if kwargs.get('grade', None): user.url=kwargs['grade']
-            if kwargs.get('profile', None): user.profile=kwargs['profile']
-            if kwargs.get('avatar', None): user.avatar=kwargs['avatar']
+            if kwargs.get('salt', None): user.salt = kwargs['salt']
+            if kwargs.get('grade', None): user.url = kwargs['grade']
+            if kwargs.get('profile', None): user.profile = kwargs['profile']
+            if kwargs.get('avatar', None): user.avatar = kwargs['avatar']
 
         user.save(using=self._db)
         return user
@@ -130,6 +130,23 @@ class StatusManager(models.Manager):
             return None
 
 
+class StatisticsManager(models.Manager):
+
+    def get_by_user(self, user):
+        query = self.get_queryset().filter(user=user)
+        if query.exists():
+            return query[0]
+        else:
+            return None
+
+    def get_by_salt(self, salt):
+        query = self.get_queryset().filter(salt=salt)
+        if query.exists():
+            return query[0]
+        else:
+            return None
+
+
 # @python_2_unicode_compatible
 # class NewUser(AbstractUser):
 #     profile = models.CharField('profile', default='', max_length=256)
@@ -156,6 +173,8 @@ class MyUser(AbstractBaseUser):
     avatar = models.CharField(max_length=200, null=True)		    # 头像
     date_joined = models.DateTimeField(auto_now=True, null=True)               # 加入时间
     date_operate = models.DateTimeField(auto_now=True, null=True)              # 数据变化时间
+
+    salt = models.CharField(max_length=64, null=True)
 
     objects = UserManager()
 
@@ -292,3 +311,20 @@ class Status(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# 统计
+@python_2_unicode_compatible
+class Statistics(models.Model):
+    user = models.ForeignKey('MyUser', null=True)
+    salt = models.CharField(max_length=64, unique=True, db_index=True)
+
+    article_num = models.IntegerField(default=0)
+    comment_num = models.IntegerField(default=0)
+    poll_num = models.IntegerField(default=0)
+    fans_num = models.IntegerField(default=0)
+
+    objects = StatisticsManager()
+
+    def __str__(self):
+        return self.user

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db import models
 from django import forms
-from .models import Comment, Article, Column, MyUser, Topic, Status
+from .models import Comment, Article, Column, MyUser, Topic, Status, Statistics
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -38,9 +38,14 @@ class StatusAdmin(admin.ModelAdmin):
     list_display = ('name', 'curr_topic')
 
 
+class StatisticsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'salt')
+
+
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Column, ColumnAdmin)
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Status, StatusAdmin)
+admin.site.register(Statistics, StatisticsAdmin)

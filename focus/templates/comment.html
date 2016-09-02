@@ -29,7 +29,7 @@
                             </a>
                         </div>
                     {% endif %}
-                    <div><a class="h5">{{ comment.author }}</a>
+                    <div><a class="h5" href="/focus/people/{{ comment.author.salt }}">{{ comment.author }}</a>
                         <br><br>
                         <p>{{ comment.content | safe }}</p>
                         <small>{{ comment.pub_date|my_date }}</small>

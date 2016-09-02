@@ -121,4 +121,8 @@ CAPTCHA_FOREGROUND_COLOR = "#003311"
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+ARTICLE_NUM_ONE_PAGE = 10
+COMMENT_NUM_ONE_PAGE = 6

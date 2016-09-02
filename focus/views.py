@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Topic, Article, Comment, Poll, MyUser, Status
+from .models import Topic, Article, Comment, Poll, MyUser, Status, Statistics
 from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm, ArticleForm, ArticleEditForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,12 +10,19 @@ from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from cms.settings import ARTICLE_NUM_ONE_PAGE, COMMENT_NUM_ONE_PAGE
+
 from django.http import (
     Http404, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect,
 )
 
 # import markdown2
 import urlparse
+import os
+
+
+def my_salt():
+    return ''.join(map(lambda xx: (hex(ord(xx))[2:]), os.urandom(16)))
 
 
 def index(request):
@@ -43,7 +50,7 @@ def topic_handler(request, topic_id, article_page=1):
     comment_form = CommmentForm()
 
     article_set = Article.objects.query_by_topic(topic_id)
-    article_paginator = Paginator(article_set, 5)
+    article_paginator = Paginator(article_set, ARTICLE_NUM_ONE_PAGE)
     try:
         article_list = article_paginator.page(article_page)
     except PageNotAnInteger:
@@ -75,7 +82,7 @@ def topic_handler(request, topic_id, article_page=1):
 
 def get_comment(article, comment_page):
     comment_set = article.comment_set.get_queryset()
-    comment_paginator = Paginator(comment_set, 1)
+    comment_paginator = Paginator(comment_set, COMMENT_NUM_ONE_PAGE)
 
     try:
         comment_list = comment_paginator.page(comment_page)
@@ -115,6 +122,11 @@ def add_article(request, topic_id):
         article.save()
         topic.article_num += 1
         topic.save()
+
+        stat = Statistics.objects.get_by_user(user)
+        if stat is not None:
+            stat.article_num += 1
+            stat.save()
     return redirect(url)
 
 
@@ -135,13 +147,17 @@ def edit_article(request, topic_id, article_id):
 def del_article(request, topic_id, article_id):
     topic = get_object_or_404(Topic, id=topic_id)
     article = get_object_or_404(Article, id=article_id)
-
+    user = request.user
     if article.author_id != request.user.id:
         pass
     else:
         Article.delete(article)
         topic.article_num -= 1
         topic.save()
+        stat = Statistics.objects.get_by_user(user)
+        if stat is not None:
+            stat.article_num -= 1
+            stat.save()
     url = urlparse.urljoin('/focus/', topic_id)
     return redirect(url)
 
@@ -159,6 +175,11 @@ def add_comment(request, topic_id, article_id):
         comment.save()
         article.comment_num += 1
         article.save()
+        stat = Statistics.objects.get_by_user(user)
+        if stat is not None:
+            stat.comment_num += 1
+            stat.save()
+
     return redirect(url)
 
 
@@ -167,7 +188,7 @@ def del_comment(request, topic_id, article_id, comment_id):
     # topic = get_object_or_404(Topic, id=topic_id)
     article = get_object_or_404(Article, id=article_id)
     comment = get_object_or_404(Comment, id=comment_id)
-
+    user = request.user
     if comment.author_id != request.user.id:
         pass
     else:
@@ -175,6 +196,10 @@ def del_comment(request, topic_id, article_id, comment_id):
         url = urlparse.urljoin('/focus/comment/', topic_id + '/' + article_id + '/' + str(1))
     article.comment_num -= 1
     article.save()
+    stat = Statistics.objects.get_by_user(user)
+    if stat is not None:
+        stat.comment_num -= 1
+        stat.save()
     return redirect(url)
 
 
@@ -194,6 +219,11 @@ def poll_handler(request, topic_id, article_id):
         article.save()
         poll = Poll(user=logged_user, article=article)
         poll.save()
+
+        stat = Statistics.objects.get_by_user(article.author)
+        if stat is not None:
+            stat.poll_num += 1
+            stat.save()
         return HttpResponse(str(article.poll_num))
 
 
@@ -273,7 +303,10 @@ def register(request):
                     elif MyUser.objects.filter(email=email).exists():
                         msg = "email exist"
                     else:
-                        MyUser.objects.create_user(email, username, password, None, profile=profile)
+                        salt = my_salt()
+                        user = MyUser.objects.create_user(email, username, password, None, profile=profile, salt=salt)
+                        stat = Statistics(user=user, salt=salt)
+                        stat.save()
                         msg = "success"
                 except:
                     pass
@@ -282,4 +315,8 @@ def register(request):
             else:
                 return render(request, 'register.html', {'form': form, 'msg': msg})
 
+
+def people_handler(request, people_salt):
+    stat = get_object_or_404(Statistics, salt=people_salt)
+    return render(request, 'people.html', {"stat": stat})
 

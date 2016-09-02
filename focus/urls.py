@@ -23,4 +23,6 @@ urlpatterns = [
 
 
     url(r'^poll/(?P<topic_id>[0-9]+)/(?P<article_id>[0-9]+)/$', views.poll_handler, name='poll_handler'),
+
+    url(r'^people/(?P<people_salt>[0-9a-zA-Z]+)$', views.people_handler, name='people_handler'),
 ]

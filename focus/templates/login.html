@@ -19,7 +19,7 @@
                 {% if msg == "mismatch" %}
                     <strong>用户名和密码不匹配</strong>
                 {% elif msg == "error" %}
-                    <strong>请输入正确的验证码</strong>
+                    <strong>输入有误,请详细检查</strong>
                 {% endif %}
             </div>
         {% endif %}
@@ -37,7 +37,7 @@
                 <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
                 <div class="input-group">
                     <span class="input-group-addon">邮箱</span>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="a@b.com" aria-describedby="inputGroupSuccess4Status">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="请输入你的邮箱地址" aria-describedby="inputGroupSuccess4Status">
                 </div>
                 {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
                 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}
@@ -47,7 +47,7 @@
                 <label class="control-label sr-only" for="inputGroupSuccess4">Input group with success</label>
                 <div class="input-group">
                     <span class="input-group-addon">密码</span>
-                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="******" aria-describedby="inputGroupSuccess4Status">
+                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="请输入您的登录密码" aria-describedby="inputGroupSuccess4Status">
                 </div>
                 {#              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
                 {#              <span id="inputGroupSuccess4Status" class="sr-only">(success)</span>#}

@@ -1,0 +1,48 @@
+{% include "header.html" %}
+{% load myfilter %}
+<div class="container-fluid">
+    <div class="col-sm-2"></div>
+    <!-- Center Column -->
+    <div class="col-sm-8">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ stat.user.username }}
+                    {% if stat.user.profile %}
+                        . <small>{{ stat.user.profile }}</small>
+                    {% endif %}
+                </h3>
+            </div>
+            <div class="panel-body">
+
+                <ul class="list-group">
+
+                    <li class="list-group-item list-group-item-success">
+                        文章
+                        <span class="badge">{{ stat.article_num }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-warning">
+                        评论
+                        <span class="badge">{{ stat.comment_num }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        被赞
+                        <span class="badge">{{ stat.poll_num }}</span>
+                    </li>
+
+                    <li class="list-group-item list-group-item-danger">
+                        粉丝
+                        <span class="badge">{{ stat.fans_num }}</span>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="panel-footer">注册时间: {{ stat.user.date_joined|my_date }}</div>
+        </div>
+
+
+    </div><!--/Center Column-->
+    <div class="col-sm-2"></div>
+</div><!--/container-fluid-->
+
+{% include "footer.html" %}

@@ -29,7 +29,10 @@
 
                 <article class="col-xs-11">
                     <p>
-                        <a class="h4">{{ article.author }}</a> <span>, {{ article.author.profile }}</span>
+                        <a class="h4" href="/focus/people/{{ article.author.salt }}">{{ article.author }}</a>
+                        {% if article.author.profile %}
+                            <span> . {{ article.author.profile }}</span>
+                        {% endif %}
                         <br>
                         <span class="text-muted small">{{ article.pub_date | my_date }}</span>
                     </p>
@@ -231,7 +234,7 @@
                 {% if request.user.is_authenticated %}
                     <h4>
                         <span class="glyphicon glyphicon-user text-primary"></span>
-                        <span class="text-primary"> {{ user }}</span>, 在这里, 随时记录你那天马行空的思想
+                        <a href="/focus/people/{{ user.salt }}"> <span class="text-primary"> {{ user }}</span></a>, 在这里, 随时记录你那天马行空的思想
                     </h4>
                 {% else %}
                     <h4><span class="glyphicon glyphicon-user"></span> 在这里, 随时记录你那天马行空的思想</h4>
