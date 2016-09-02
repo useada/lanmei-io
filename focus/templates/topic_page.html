@@ -253,7 +253,8 @@
             <div class="col-xs-12">
                 <form onsubmit="return submit_article()" action="/focus/add_article/{{ topic.id }}/" method="post">
                     {% csrf_token %}
-                    {{ article_form.content }}
+{#                    {{ article_form.content }}#}
+                    <textarea autofocus="autofocus" cols="40" id="editor" name="content" placeholder="写下你的文字" rows="10"></textarea>
                     {{ article_form.captcha }}
                     <input class="btn btn-primary btn-lg btn-block" type="submit" value="发表文章" />
                 </form>
