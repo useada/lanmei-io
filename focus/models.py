@@ -174,7 +174,7 @@ class MyUser(AbstractBaseUser):
     date_joined = models.DateTimeField(auto_now=True, null=True)               # 加入时间
     date_operate = models.DateTimeField(auto_now=True, null=True)              # 数据变化时间
 
-    salt = models.CharField(max_length=64, null=True)
+    salt = models.CharField(max_length=64, unique=True)
 
     objects = UserManager()
 
