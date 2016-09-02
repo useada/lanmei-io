@@ -327,4 +327,4 @@ class Statistics(models.Model):
     objects = StatisticsManager()
 
     def __str__(self):
-        return self.user
+        return self.user.username
