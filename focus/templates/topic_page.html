@@ -21,7 +21,10 @@
 
                     <div>
                         <div class="btn-group-vertical" role="group" aria-label="...">
-                            <a id="article-{{ article.id }}-poll" poll-url="/focus/poll/{{ topic.id }}/{{ article.id }}/" href="javascript:void(0);"><h3 style="color: rgb(21, 51, 128);">赞</h3> <span id="article-{{ article.id }}-pollnum" class="badge">{{ article.poll_num }}</span></a>
+                            <a id="article-{{ article.id }}-poll" poll-url="/focus/poll/{{ topic.id }}/{{ article.id }}/" article_id="{{ article.id }}" href="javascript:void(0);">
+                                <h3 style="color: rgb(21, 51, 128);">赞</h3>
+                                <span id="article-{{ article.id }}-pollnum" class="badge">{{ article.poll_num }}</span>
+                            </a>
                         </div>
                     </div>
 
@@ -42,13 +45,13 @@
                             {{ article.content | safe }}
                         </div>
                         {% if user.id == article.author_id %}
-                        <a class="pull-right" id="article-{{ article.id }}-edit-door" href="javascript:void(0);">
+                            <a class="pull-right" id="article-{{ article.id }}-edit-door" href="javascript:void(0);">
                                 <strong>
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
                                 </strong>
-                        </a>
+                            </a>
                         {% endif %}
-                        <div id="article-{{ article.id }}-edit">
+                        <div id="article-{{ article.id }}-edit" style="display:none;">
                             <textarea id="article-{{ article.id }}-editor" placeholder="" autofocus>
                             </textarea>
 
@@ -70,8 +73,8 @@
 
                     <div class="row">
                         <div class="col-xs-12">
-                            <div id="article-{{ article.id }}-comment">
-{% include "comment.html" %}
+                            <div id="article-{{ article.id }}-comment" style="display:none;">
+                                {% include "comment.html" %}
                             </div>
                         </div>
                     </div>
@@ -79,146 +82,151 @@
 
                 </article>
 
+                <script type="text/javascript">
+{#                    $('#article-{{ article.id }}-comment').hide();#}
+{#                    $('#article-{{ article.id }}-edit').hide();#}
 
-<script type="text/javascript">
-    $('#article-{{ article.id }}-comment').hide();
-    $('#article-{{ article.id }}-edit').hide();
+                    $('#article-{{ article.id }}-comment-door').click(
+                            function(){
+                                var door = $('#article-{{ article.id }}-comment-door');
+                                var node=$('#article-{{ article.id }}-comment');
+                                if (node.is(':visible'))
+                                {
+                                    node.hide();
+                                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(查看添加)');
+                                }
+                                else
+                                {
+                                    node.show();
+                                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(收起评论)');
+                                }
+                            });
 
-    $('#article-{{ article.id }}-comment-door').click(
-            function(){
-                var door = $('#article-{{ article.id }}-comment-door');
-                var node=$('#article-{{ article.id }}-comment');
-                if (node.is(':visible'))
-                {
-                    node.hide();
-                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(查看添加)');
-                }
-                else
-                {
-                    node.show();
-                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(收起评论)');
-                }
-            });
-
-    $('#article-{{ article.id }}-edit-door').click(
-            function(){
-                var door = $('#article-{{ article.id }}-edit-door');
-                var show_node=$('#article-{{ article.id }}-show');
-                var edit_node=$('#article-{{ article.id }}-edit');
-
-                var cc = '<textarea id="article-{{ article.id }}-editor" placeholder="" autofocus></textarea>'
-                        + '<div class="row">'
-                        + '<div class="col-sm-6"><button id="article-{{ article.id }}-edit-submit" type="button" class="btn btn-primary btn btn-block">提交</button></div>'
-                        + '<div class="col-sm-6"><button id="article-{{ article.id }}-edit-cancel" type="button" class="btn btn-default btn btn-block">取消</button></div>'
-                        + '</div>';
-
-                edit_node.html(cc);
-
-                if (door.is(':visible'))
-                {
-                    door.hide();
-                    show_node.hide();
-                    edit_node.show();
-                    var editor = new Simditor({
-                        textarea: $('#article-{{ article.id }}-editor'),
-                        //placeholder: show_node.text(),
-                        //optional options
-                    });
-                    editor.setValue(show_node.html());
-
-                    $('#article-{{ article.id }}-edit-cancel').click(
-                            function() {
+                    $('#article-{{ article.id }}-edit-door').click(
+                            function(){
                                 var door = $('#article-{{ article.id }}-edit-door');
                                 var show_node=$('#article-{{ article.id }}-show');
                                 var edit_node=$('#article-{{ article.id }}-edit');
 
-                                door.show();
-                                show_node.show();
+                                var cc = '<textarea id="article-{{ article.id }}-editor" placeholder="" autofocus></textarea>'
+                                        + '<div class="row">'
+                                        + '<div class="col-sm-6"><button id="article-{{ article.id }}-edit-submit" type="button" class="btn btn-primary btn btn-block">提交</button></div>'
+                                        + '<div class="col-sm-6"><button id="article-{{ article.id }}-edit-cancel" type="button" class="btn btn-default btn btn-block">取消</button></div>'
+                                        + '</div>';
 
-                                edit_node.hide();
+                                edit_node.html(cc);
+
+                                if (door.is(':visible'))
+                                {
+                                    door.hide();
+                                    show_node.hide();
+                                    edit_node.show();
+                                    var editor = new Simditor({
+                                        textarea: $('#article-{{ article.id }}-editor'),
+                                        //placeholder: show_node.text(),
+                                        //optional options
+                                    });
+                                    editor.setValue(show_node.html());
+
+                                    $('#article-{{ article.id }}-edit-cancel').click(
+                                            function() {
+                                                var door = $('#article-{{ article.id }}-edit-door');
+                                                var show_node=$('#article-{{ article.id }}-show');
+                                                var edit_node=$('#article-{{ article.id }}-edit');
+
+                                                door.show();
+                                                show_node.show();
+
+                                                edit_node.hide();
+                                            });
+
+                                    $('#article-{{ article.id }}-edit-submit').click(
+                                            function() {
+                                                var content = editor.getValue();
+
+                                                $.ajax({
+                                                    type:"POST",
+                                                    data: {content:content},
+                                                    url:  '/focus/edit_article/{{ topic.id }}/{{ article.id }}/',
+                                                    cache: false,
+                                                    dataType: "html",
+                                                    success: function(result, statues, xml){
+                                                        //alert(result);
+                                                        //$('#article-{{ article.id }}-comment').html(result);
+
+
+                                                        var door = $('#article-{{ article.id }}-edit-door');
+                                                        var show_node=$('#article-{{ article.id }}-show');
+                                                        var edit_node=$('#article-{{ article.id }}-edit');
+
+                                                        door.show();
+                                                        show_node.html(content);
+                                                        show_node.show();
+
+                                                        edit_node.hide();
+                                                    },
+                                                    error: function(){
+                                                        //alert("false");
+                                                        var door = $('#article-{{ article.id }}-edit-door');
+                                                        var show_node=$('#article-{{ article.id }}-show');
+                                                        var edit_node=$('#article-{{ article.id }}-edit');
+
+                                                        door.show();
+                                                        show_node.show();
+
+                                                        edit_node.hide();
+                                                    }
+                                                });
+                                                return false;
+                                            });
+                                }
+
                             });
-
-                    $('#article-{{ article.id }}-edit-submit').click(
-                            function() {
-                                var content = editor.getValue();
-
-                                $.ajax({
-                                    type:"POST",
-                                    data: {content:content},
-                                    url:  '/focus/edit_article/{{ topic.id }}/{{ article.id }}/',
-                                    cache: false,
-                                    dataType: "html",
-                                    success: function(result, statues, xml){
-                                        //alert(result);
-                                        //$('#article-{{ article.id }}-comment').html(result);
-
-
-                                        var door = $('#article-{{ article.id }}-edit-door');
-                                        var show_node=$('#article-{{ article.id }}-show');
-                                        var edit_node=$('#article-{{ article.id }}-edit');
-
-                                        door.show();
-                                        show_node.html(content);
-                                        show_node.show();
-
-                                        edit_node.hide();
-                                    },
-                                    error: function(){
-                                        //alert("false");
-                                        var door = $('#article-{{ article.id }}-edit-door');
-                                        var show_node=$('#article-{{ article.id }}-show');
-                                        var edit_node=$('#article-{{ article.id }}-edit');
-
-                                        door.show();
-                                        show_node.show();
-
-                                        edit_node.hide();
-                                    }
-                                });
-                                return false;
-                            });
-                }
-
-            });
-
-
-    $("a[poll-url]").click(function() {
-        var $this = $(this);
-        var url = $this.attr("poll-url");
-        if (url) {
-            $.get(url, {}, function(data){ $('#article-{{ article.id }}-pollnum').html(data); });
-        }
-
-        return false;
-    });
-</script>
-
+                </script>
 
             </div>
             <hr>
         {% endfor %}
 
-        {% if not article_list|length_is:0 %}
-        <div class="row">
-            <div class="col-xs-12" id="article-page">
-            </div>
-        </div>
-
         <script type="text/javascript">
-            $('#article-page').twbsPagination({
-                totalPages: {{ topic.total_article_page }},
-                initiateStartPageClick: false,
-                visiblePages: 5,
-                startPage: {{ topic.article_page }},
-                first: "首页",
-                prev: "上页",
-                next: "下页",
-                last: "末页",
-                paginationClass: "pagination pagination-lg center",
-                href: '/focus/{{ topic.id }}/[[pageNumber]]',
-                hrefVariable: '[[pageNumber]]',
+            $("a[poll-url]").click(function() {
+                {% if not request.user.is_authenticated %}
+                    need_login_prompt('{{ request.path }}');
+                    return;
+                {% endif %}
+
+                var $this = $(this);
+                var url = $this.attr("poll-url");
+                var article_id = $this.attr("article_id");
+                if (url && article_id) {
+                    $.get(url, {}, function(data){ $('#article-'+article_id+'-pollnum').html(data); });
+                }
+
+                return false;
             });
         </script>
+
+        {% if not article_list|length_is:0 %}
+            <div class="row">
+                <div class="col-xs-12" id="article-page">
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                $('#article-page').twbsPagination({
+                    totalPages: {{ topic.total_article_page }},
+                    initiateStartPageClick: false,
+                    visiblePages: 5,
+                    startPage: {{ topic.article_page }},
+                    first: "首页",
+                    prev: "上页",
+                    next: "下页",
+                    last: "末页",
+                    paginationClass: "pagination pagination-lg center",
+                    href: '/focus/{{ topic.id }}/[[pageNumber]]',
+                    hrefVariable: '[[pageNumber]]',
+                });
+            </script>
 
         {% else %}
             <div class="alert alert-success alert-dismissible" role="alert">
@@ -243,7 +251,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <form action="/focus/add_article/{{ topic.id }}/" method="post">
+                <form onsubmit="return submit_article()" action="/focus/add_article/{{ topic.id }}/" method="post">
                     {% csrf_token %}
                     {{ article_form.content }}
                     {{ article_form.captcha }}
@@ -270,13 +278,22 @@
                     'i', 'strike', 'u', 'font', 'p', 'ul', 'ol', 'li',
                     'blockquote', 'pre', 'code', 'hr'],
             });
+            
+            function submit_article() {
+                {% if not request.user.is_authenticated %}
+                    need_login_prompt('{{ request.path }}');
+                    return false;
+                {% else %}
+                    return true;
+                {% endif %}
+            }
         </script>
 
     </div><!--/Center Column-->
 
 
     <!-- Right Column -->
-{#{% include "righter.html" %}#}
+    {#{% include "righter.html" %}#}
 
 
     <div class="col-sm-2"></div>

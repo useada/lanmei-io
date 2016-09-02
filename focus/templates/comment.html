@@ -87,6 +87,11 @@
 
 
     $('#article-{{ article.id }}-add-comment').submit(function(){
+        {% if not request.user.is_authenticated %}
+            need_login_prompt('{{ request.path }}');
+            return false;
+        {% endif %}
+
         var content = $("#article-{{ article.id }}-add-comment-content").val();
 
         $.ajax({
@@ -108,7 +113,6 @@
 
 
     $("a[url]").click(function() {
-        //console.log("hahaha");
         var $this = $(this);
         var url = $this.attr("url");
         if (url) {
