@@ -23,9 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'narpk+=p5=zgyy43n+9r#2zig7fq^ez0_!8zz0j0k45=jt_ehe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "kaixinkafei.com",
+    '127.0.0.1',
+    'localhost'
+]
 
 AUTH_USER_MODEL = "focus.MyUser"
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend', 'focus.models.CustomAuth')
