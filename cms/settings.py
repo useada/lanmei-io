@@ -139,4 +139,4 @@ COMMENT_NUM_ONE_PAGE = 6
 URL = 'http://kaixinkafei.com'
 APP_KEY = ''
 APP_SERCET = ''
-CALLBACK_URL = URL+'/login/weibo_check/'  # 回调地址
+CALLBACK_URL = URL+'/focus/weibo_check/'  # 回调地址

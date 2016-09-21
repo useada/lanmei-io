@@ -6,8 +6,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/focus/static/img/lanmei-logo.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/psd/lanmei-show.jpg" afterPath="$PROJECT_DIR$/psd/lanmei-show.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms/settings.py" afterPath="$PROJECT_DIR$/cms/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/models.py" afterPath="$PROJECT_DIR$/focus/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/urls.py" afterPath="$PROJECT_DIR$/focus/urls.py" />
     </list>
     <ignored path="lanmei-io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,7 +55,7 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cms/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
+            <state relative-caret-position="190">
               <caret line="137" column="15" selection-start-line="137" selection-start-column="15" selection-end-line="137" selection-end-column="15" />
               <folding />
             </state>
@@ -67,7 +65,7 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/focus/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
+            <state relative-caret-position="190">
               <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
               <folding>
                 <element signature="e#1#42#0" expanded="true" />
@@ -953,16 +951,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focus/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
-          <folding>
-            <element signature="e#1#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/focus/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1005,9 +993,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/focus/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
+          <folding>
+            <element signature="e#1#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cms/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
+        <state relative-caret-position="190">
           <caret line="137" column="15" selection-start-line="137" selection-start-column="15" selection-end-line="137" selection-end-column="15" />
           <folding />
         </state>
