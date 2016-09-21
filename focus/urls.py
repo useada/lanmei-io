@@ -1,12 +1,16 @@
 
 from django.conf.urls import include, url
 from . import views
+from . import weibo_views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.log_in, name='login'),
     url(r'^logout/$', views.log_out, name='logout'),
+
+    url(r'^weibo_login/$', weibo_views.weibo_login, name='weibo_login'),
+    url(r'^weibo_check/$', weibo_views.weibo_check, name='weibo_check'),
 
     url(r'^helper/$', views.helper, name='helper'),
     url(r'^topic_list/$', views.topic_list, name='topic_list'),

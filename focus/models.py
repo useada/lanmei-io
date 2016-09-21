@@ -8,6 +8,15 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
+#################################################
+# from django.conf import settings
+import urllib
+import urllib2
+import simplejson as json
+# from manager.models import MyUser
+from django.contrib.auth import authenticate, login, logout
+# from django.http import HttpResponseRedirect
+
 
 class UserManager(BaseUserManager):
     """通过邮箱，密码创建用户"""
@@ -328,3 +337,89 @@ class Statistics(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+
+# 默认图片
+DEFAULT_PIC = 'http://images.cnitblog.com/news/66372/201405/271116202595556.jpg'
+# 用户信息
+USER_INFO_URL = 'https://api.weibo.com/2/users/show.json'
+# 发送微博
+SEND_WEIBO_URL = 'https://api.weibo.com/2/statuses/upload_url_text.json'
+user_agent = 'Mozilla/5.0 (Windows NT 6.1; rv:28.0) Gecko/20100101 Firefox/28.0'
+headers = {'User-Agent': user_agent}
+
+
+class WeiboUser(object):
+    def __init__(self, access_token, uid, request=None, **kwargs):
+        self.access_token = access_token
+        self.uid = uid
+        self.request = request
+        self.user_cache = None
+        self.kwargs = kwargs
+
+    def get_email(self):
+        return str(self.uid) + '@weibo.com'
+
+    def create_user(self):
+        """创建用户"""
+        user_info = self.get_user_info()
+        username = user_info.get('screen_name')
+        if MyUser.objects.filter(username=username).exists():
+            username += '[weibo]'
+        u_id = 0
+        try:
+            new_user = MyUser.objects.create_user(
+                    email=self.get_email(),
+                    username=username,
+                    password=self.uid,
+                    type=1,
+                    sex=int(user_info.get('sex', 1)),
+                    # uid=self.uid,
+                    access_token=self.access_token,
+                    # url=user_info.get('url', ''),
+                    profile=user_info.get('description', ''),
+                    avatar=user_info.get('avatar_large'),
+            )
+            u_id = new_user.id
+        except:
+            pass
+        self.login()    # 登陆
+        return u_id
+
+    def get_user_info(self):
+        """获取微博用户信息"""
+        data = {'access_token': self.access_token, 'uid': self.uid}
+        params = urllib.urlencode(data)
+        values = urllib2.Request(USER_INFO_URL+'?%s' % params, headers=headers)
+        response = urllib2.urlopen(values)
+        result = json.loads(response.read())
+        if result.get('error_code', None):
+            print '获取用户信息失败'
+            return False
+        return result
+
+    def send_weibo(self):
+        """用户发送微博"""
+        status = self.kwargs.get('status', None)    # 微博内容
+        visible = self.kwargs.get('visible', 0)     # 微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。
+        url = self.kwargs.get('url', DEFAULT_PIC)   # 配图
+        result = {}
+        if status:
+            data = {'access_token': self.access_token, 'status': status, 'visible': visible, 'url': url}
+            params = urllib.urlencode(data)
+            values = urllib2.Request(USER_INFO_URL+'?%s' % params, headers=headers)
+            response = urllib2.urlopen(values)
+            result = json.loads(response.read())
+            if result.get('error_code', None):
+                print '发送微博失败'
+                return False
+            return True
+        return result
+
+    def login(self):
+        """登陆"""
+        email = self.get_email()
+        user_ = MyUser.objects.filter(email=email)[0]
+        user = authenticate(email=user_.email, password=self.uid)
+        login(self.request, user)

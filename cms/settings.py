@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for cms project.
 
@@ -131,3 +133,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 ARTICLE_NUM_ONE_PAGE = 10
 COMMENT_NUM_ONE_PAGE = 6
+
+
+########## 微博登陆
+URL = 'http://kaixinkafei.com'
+APP_KEY = ''
+APP_SERCET = ''
+CALLBACK_URL = URL+'/login/weibo_check/'  # 回调地址
