@@ -220,6 +220,10 @@ class MyUser(AbstractBaseUser):
     def __str__(self):
         return self.username
 
+    @property
+    def can_password(self):
+        return self.type == 0
+
     class Meta:
         db_table = 'user'
 
