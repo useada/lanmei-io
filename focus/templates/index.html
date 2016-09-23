@@ -1,5 +1,6 @@
 {% include "header.html" %}
 {% load myfilter %}
+{% load staticfiles %}
 
 <div class="container-fluid">
     <div class="col-sm-1"></div>
@@ -18,10 +19,10 @@
 {#            <hr>#}
 
             <div style="background-color:#f2f8ff; !important" class="jumbotron">
-                <h1 style="color: darkblue;">开心咖啡</h1>
-                <h2 style="color: #104c80;">写点有意思的文字</h2>
-                <h3 style="color: #104c80;">每期有一个主题, 围绕主题写故事</h3>
-                <br>
+                <h1 style="color: darkblue;">开心咖啡<small style="color: #104c80;">(来点儿有意思的)</small></h1>
+
+{#                <h3 style="color: #104c80;">每期有一个主题, 围绕主题写故事</h3>#}
+
                 {% if status %}
                 <p>
                     <span class="h3">本期主题:</span> <a href="/focus/{{ status.curr_topic.id }}/">{{ status.curr_topic.content }}</a>
@@ -36,36 +37,92 @@
         <!-- Articles -->
         {% for article in top10_article_list %}
             <div class="row">
-{#                <div class="col-xs-1">#}
-{#                    Picture#}
-{#                </div>#}
+                <div class="col-xs-12">
 
-                <article class="col-xs-12">
-                    <h4>
-                        <a href="/focus/{{ article.topic_id }}">
-                            {{ article.topic.content|truncatechars_html:80 | safe }}
+                    <div class="media">
+                        <a class="media-left" href="/focus/people/{{ article.author.salt }}">
+                            {% if article.author.avatar %}
+                                <img src="{{ article.author.avatar }}" alt="...">
+                            {% else %}
+                                <img src="{% static "img/default_avatar.jpg" %}" alt="...">
+                            {% endif %}
                         </a>
-                    </h4>
-                    <p>
-                        <a href="/focus/people/{{ article.author.salt }}"><b class="text-info">{{ article.author }}</b></a>
+                        <div class="media-body">
+{#                            <h4 class="media-heading">Media heading</h4>#}
+                            <p>
+                                <a href="/focus/people/{{ article.author.salt }}"><b class="text-info">{{ article.author }}</b></a>
 
-                        {% if article.author.profile %}
-                            . <span class="text-muted small">{{ article.author.profile }}</span>
-                        {% endif %}
-                        <span class="text-muted small">{{ article.pub_date|my_date }}</span>
-                    </p>
+                                {% if article.author.profile %}
+                                    . <span class="text-muted small">{{ article.author.profile }}</span>
+                                {% endif %}
+                                <span class="text-muted small">{{ article.pub_date|my_date }}</span>
+                            </p>
 
-                    <div style="background-color: white;" class="alert alert-success" role="alert">
-                        {{ article.content|truncatechars_html:80 | safe }}
-                        <a href="/focus/{{ article.topic_id }}/#article-{{ article.id }}-box">点击阅读</a>
+                            <h4>
+                                <a href="/focus/{{ article.topic_id }}">
+                                    {{ article.topic.content|truncatechars_html:80 | safe }}
+                                </a>
+                            </h4>
+
+                            {{ article.content|truncatechars_html:80 | safe }}
+                            <a class="text-muted" href="/focus/{{ article.topic_id }}/#article-{{ article.id }}-box">点击阅读</a>
+
+                            <ul class="list-inline small">
+                                <li><span class="text-muted"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</span></li>
+                                <li><span class="text-muted"><span class="glyphicon glyphicon-star"></span>{{ article.poll_num }} 赞</span></li>
+                            </ul>
+
+
+                        </div>
                     </div>
 
-                    <ul class="list-inline small">
-                        <li><span class="text-muted"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</span></li>
-                        <li><span class="text-muted"><span class="glyphicon glyphicon-star"></span>{{ article.poll_num }} 赞</span></li>
-                    </ul>
-                </article>
+                </div>
             </div>
+
+
+
+
+{#            <div class="row">#}
+{#                <div class="col-xs-1">#}
+{#                    <img src="{% static "img/default_avatar.jpg" %}" />#}
+{#                </div>#}
+{#                <div style="background-color: white;" class="alert alert-success" role="alert">#}
+{##}
+{#                <article class="col-xs-11">#}
+{#                    <p>#}
+{#                        <a href="/focus/people/{{ article.author.salt }}"><b class="text-info">{{ article.author }}</b></a>#}
+{##}
+{#                        {% if article.author.profile %}#}
+{#                            . <span class="text-muted small">{{ article.author.profile }}</span>#}
+{#                        {% endif %}#}
+{#                        <span class="text-muted small">{{ article.pub_date|my_date }}</span>#}
+{#                    </p>#}
+{##}
+{#                    <h4>#}
+{#                        <a href="/focus/{{ article.topic_id }}">#}
+{#                            {{ article.topic.content|truncatechars_html:80 | safe }}#}
+{#                        </a>#}
+{#                    </h4>#}
+{##}
+{#                <div class="row">#}
+{#                    <div class="col-xs-2">#}
+{#                    </div>#}
+{#                    <div class="col-xs-12">#}
+{#                        {{ article.content|truncatechars_html:80 | safe }}#}
+{#                        <a href="/focus/{{ article.topic_id }}/#article-{{ article.id }}-box">点击阅读</a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{##}
+{##}
+{##}
+{#                    <ul class="list-inline small">#}
+{#                        <li><span class="text-muted"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</span></li>#}
+{#                        <li><span class="text-muted"><span class="glyphicon glyphicon-star"></span>{{ article.poll_num }} 赞</span></li>#}
+{#                    </ul>#}
+{#                </article>#}
+{#                </div>#}
+{#            </div>#}
             <hr>
         {% endfor %}
         </div>

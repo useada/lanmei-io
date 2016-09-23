@@ -66,8 +66,41 @@
                     <p></p>
 
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-3">
+{#                        <wb:share-button appkey="3315407051" addition="simple" type="button" ralateUid="5262632803"></wb:share-button>#}
+
                             <a class="text-muted" id="article-{{ article.id }}-comment-door" href="javascript:void(0);"> <span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(查看添加)</a>
+                        </div>
+
+                        <div class="col-xs-7">
+
+                            <!-- JiaThis Button BEGIN -->
+                            <div class="jiathis_style">
+                                {#    <span class="jiathis_txt">分享到：</span>#}
+
+                                <a class="jiathis_button_tsina"></a>
+                                <a class="jiathis_button_weixin"></a>
+
+                                {#<a class="jiathis_button_qzone"></a>#}
+                                {#<a class="jiathis_button_tsina"></a>#}
+                                {#<a class="jiathis_button_tqq"></a>#}
+                                {##}
+                                {#<a class="jiathis_button_xiaoyou"></a>#}
+                                {#<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>#}
+                            </div>
+                            <script type="text/javascript" >
+                                var jiathis_config={
+                                    siteNum:6,
+                                    sm:"tsina, weixin",
+                                    summary:"{{ article.topic.content | striptags | truncatechars:120  }}",
+                                    boldNum:2,
+                                    shortUrl:false,
+                                    hideMore:false
+                                }
+                            </script>
+                            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                            <!-- JiaThis Button END -->
+
                         </div>
                     </div>
 
