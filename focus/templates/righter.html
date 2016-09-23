@@ -1,33 +1,33 @@
-<div class="col-sm-2">
-    {% if request.user.is_authenticated %}
-        <!-- Form -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <a>{{ user }}</a>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <a href="/focus/logout/">注销</a>
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <span class="glyphicon glyphicon-log-in"></span>
-                    尚未登入
-                </h3>
-            </div>
-            <div class="panel-body">
-                <a href="/focus/register">注册</a>
-                <a href="/focus/login">登入</a>
-            </div>
-        </div>
-    {% endif %}
+{#<div class="col-sm-2">#}
+{#    {% if request.user.is_authenticated %}#}
+{#        <!-- Form -->#}
+{#        <div class="panel panel-default">#}
+{#            <div class="panel-heading">#}
+{#                <h3 class="panel-title">#}
+{#                    <span class="glyphicon glyphicon-user"></span>#}
+{#                    <a>{{ user }}</a>#}
+{#                </h3>#}
+{#            </div>#}
+{#            <div class="panel-body">#}
+{#                <div class="form-group">#}
+{#                    <a href="/focus/logout/">注销</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% else %}#}
+{#        <div class="panel panel-default">#}
+{#            <div class="panel-heading">#}
+{#                <h3 class="panel-title">#}
+{#                    <span class="glyphicon glyphicon-log-in"></span>#}
+{#                    尚未登入#}
+{#                </h3>#}
+{#            </div>#}
+{#            <div class="panel-body">#}
+{#                <a href="/focus/register">注册</a>#}
+{#                <a href="/focus/login">登入</a>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
     <!-- Progress Bars -->
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -37,30 +37,13 @@
             </h3>
         </div>
         <div class="panel-body">
-            <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
-                     aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                    “她洗澡去了” 热度100%
-                </div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80"
-                     aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                    80% Tornado
-                </div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45"
-                     aria-valuemin="0" aria-valuemax="100" style="width:45%">
-                    45% Crawler
-                </div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="35"
-                     aria-valuemin="0" aria-valuemax="100" style="width:35%">
-                    35% Basics
-                </div>
-            </div>
+            {% for topic in top10_topic_list %}
+                <a href="/focus/{{ topic.id }}">
+                <h5>{{ topic.content|truncatechars_html:36 | safe }}</h5>
+                </a>
+            {% endfor %}
+
+            <a href="/focus/topic_list/"><span class="text-muted h6">查看其它主题</span></a>
         </div>
     </div>
 
@@ -111,4 +94,4 @@
         </a>
     </div>
 
-</div><!--/Right Column -->
+{#</div><!--/Right Column -->#}

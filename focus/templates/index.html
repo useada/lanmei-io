@@ -4,8 +4,9 @@
 
 <div class="container-fluid">
     <div class="col-sm-1"></div>
+
     <!-- Center Column -->
-    <div class="col-sm-9">
+    <div class="col-sm-8">
 
     <div class="row">
         <div class="col-sm-12">
@@ -19,13 +20,15 @@
 {#            <hr>#}
 
             <div style="background-color:#f2f8ff; !important" class="jumbotron">
-                <h1 style="color: darkblue;">开心咖啡<small style="color: #104c80;">(来点儿有意思的)</small></h1>
+                <h1 style="color: darkblue;">开心咖啡&nbsp;<small style="color: #104c80;">(来点儿有意思的)</small></h1>
 
 {#                <h3 style="color: #104c80;">每期有一个主题, 围绕主题写故事</h3>#}
 
                 {% if status %}
                 <p>
                     <span class="h3">本期主题:</span> <a href="/focus/{{ status.curr_topic.id }}/">{{ status.curr_topic.content }}</a>
+                    <br>
+                    <a href="/focus/topic_list/"><span class="text-muted h5">查看其它主题</span></a>
                 </p>
                 {% endif %}
             </div>
@@ -78,51 +81,6 @@
 
                 </div>
             </div>
-
-
-
-
-{#            <div class="row">#}
-{#                <div class="col-xs-1">#}
-{#                    <img src="{% static "img/default_avatar.jpg" %}" />#}
-{#                </div>#}
-{#                <div style="background-color: white;" class="alert alert-success" role="alert">#}
-{##}
-{#                <article class="col-xs-11">#}
-{#                    <p>#}
-{#                        <a href="/focus/people/{{ article.author.salt }}"><b class="text-info">{{ article.author }}</b></a>#}
-{##}
-{#                        {% if article.author.profile %}#}
-{#                            . <span class="text-muted small">{{ article.author.profile }}</span>#}
-{#                        {% endif %}#}
-{#                        <span class="text-muted small">{{ article.pub_date|my_date }}</span>#}
-{#                    </p>#}
-{##}
-{#                    <h4>#}
-{#                        <a href="/focus/{{ article.topic_id }}">#}
-{#                            {{ article.topic.content|truncatechars_html:80 | safe }}#}
-{#                        </a>#}
-{#                    </h4>#}
-{##}
-{#                <div class="row">#}
-{#                    <div class="col-xs-2">#}
-{#                    </div>#}
-{#                    <div class="col-xs-12">#}
-{#                        {{ article.content|truncatechars_html:80 | safe }}#}
-{#                        <a href="/focus/{{ article.topic_id }}/#article-{{ article.id }}-box">点击阅读</a>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{##}
-{##}
-{##}
-{#                    <ul class="list-inline small">#}
-{#                        <li><span class="text-muted"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</span></li>#}
-{#                        <li><span class="text-muted"><span class="glyphicon glyphicon-star"></span>{{ article.poll_num }} 赞</span></li>#}
-{#                    </ul>#}
-{#                </article>#}
-{#                </div>#}
-{#            </div>#}
             <hr>
         {% endfor %}
         </div>
@@ -131,9 +89,10 @@
 
 
     <!-- Right Column -->
-{#    {% include "righter.html" %}#}
+<div class="col-sm-3">
+{% include "righter.html" %}
+</div>
 
-<div class="col-sm-2"></div>
 </div><!--/container-fluid-->
 
 {% include "footer.html" %}

@@ -28,8 +28,11 @@ def my_salt():
 def index(request):
     status = Status.objects.get_current()
     top10_article_list = Article.objects.query_by_polls()[:10]
+    top10_topic_list = Topic.objects.query_by_polls()[:10]
     login_form = LoginForm()
-    context = { 'status': status, 'top10_article_list': top10_article_list, 'login_form': login_form}
+    context = { 'status': status, 'top10_article_list': top10_article_list,
+                'top10_topic_list': top10_topic_list,
+                'login_form': login_form}
     return render(request, 'index.html', context)
 
 

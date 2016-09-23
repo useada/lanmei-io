@@ -5,6 +5,8 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/focus/static/img/lanmei-info.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/psd/lanmei-show.jpg" afterPath="$PROJECT_DIR$/psd/lanmei-show.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/index.html" afterPath="$PROJECT_DIR$/focus/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/righter.html" afterPath="$PROJECT_DIR$/focus/templates/righter.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/views.py" afterPath="$PROJECT_DIR$/focus/views.py" />
     </list>
     <ignored path="lanmei-io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,6 +31,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/focus/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
+              <folding>
+                <element signature="e#25#89#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="weibo_views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/focus/weibo_views.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -42,7 +56,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/focus/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
+            <state relative-caret-position="5662">
               <caret line="382" column="51" selection-start-line="382" selection-start-column="51" selection-end-line="382" selection-end-column="51" />
               <folding>
                 <element signature="e#25#40#0" expanded="true" />
@@ -106,13 +120,22 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="46" column="116" selection-start-line="46" selection-start-column="116" selection-end-line="46" selection-end-column="116" />
+            <state relative-caret-position="209">
+              <caret line="30" column="75" selection-start-line="30" selection-start-column="75" selection-end-line="30" selection-end-column="75" />
               <folding>
-                <element signature="e#693#717#0#HTML" expanded="true" />
-                <element signature="e#729#752#0#HTML" expanded="true" />
-                <marker date="1474635872000" expanded="false" signature="3672:3696" ph="..." />
+                <element signature="e#694#718#0#HTML" expanded="true" />
+                <element signature="e#736#759#0#HTML" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="righter.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/focus/templates/righter.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="83">
+              <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -133,7 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/focus/templates/righter.html" />
         <option value="$PROJECT_DIR$/focus/templates/help.html" />
         <option value="$PROJECT_DIR$/focus/templatetags/myfilter.py" />
         <option value="$PROJECT_DIR$/focus/templates/topic_list.html" />
@@ -146,7 +168,6 @@
         <option value="$PROJECT_DIR$/focus/templates/login.html" />
         <option value="$PROJECT_DIR$/focus/templates/register.html" />
         <option value="$PROJECT_DIR$/focus/admin.py" />
-        <option value="$PROJECT_DIR$/focus/views.py" />
         <option value="$PROJECT_DIR$/focus/templates/people.html" />
         <option value="$PROJECT_DIR$/focus/templates/helper.html" />
         <option value="$PROJECT_DIR$/focus/templates/comment.html" />
@@ -159,6 +180,8 @@
         <option value="$PROJECT_DIR$/focus/models.py" />
         <option value="$PROJECT_DIR$/focus/templates/header.html" />
         <option value="$PROJECT_DIR$/focus/templates/topic_page.html" />
+        <option value="$PROJECT_DIR$/focus/views.py" />
+        <option value="$PROJECT_DIR$/focus/templates/righter.html" />
         <option value="$PROJECT_DIR$/focus/templates/index.html" />
       </list>
     </option>
@@ -766,14 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focus/templates/righter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/focus/templatetags/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -968,14 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focus/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5571">
-          <caret line="12" column="67" selection-start-line="12" selection-start-column="67" selection-end-line="12" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cms/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1054,7 +1061,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/focus/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
+        <state relative-caret-position="5662">
           <caret line="382" column="51" selection-start-line="382" selection-start-column="51" selection-end-line="382" selection-end-column="51" />
           <folding>
             <element signature="e#25#40#0" expanded="true" />
@@ -1062,14 +1069,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/focus/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
+          <folding>
+            <element signature="e#25#89#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/focus/templates/righter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="46" column="116" selection-start-line="46" selection-start-column="116" selection-end-line="46" selection-end-column="116" />
+        <state relative-caret-position="209">
+          <caret line="30" column="75" selection-start-line="30" selection-start-column="75" selection-end-line="30" selection-end-column="75" />
           <folding>
-            <element signature="e#693#717#0#HTML" expanded="true" />
-            <element signature="e#729#752#0#HTML" expanded="true" />
-            <marker date="1474635872000" expanded="false" signature="3672:3696" ph="..." />
+            <element signature="e#694#718#0#HTML" expanded="true" />
+            <element signature="e#736#759#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
