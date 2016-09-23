@@ -4,9 +4,7 @@
     <list default="true" id="69495602-d3ea-441f-b2ff-fe1b2c46309a" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/focus/static/img/lanmei-info.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/psd/lanmei-show.jpg" afterPath="$PROJECT_DIR$/psd/lanmei-show.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/header.html" afterPath="$PROJECT_DIR$/focus/templates/header.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/index.html" afterPath="$PROJECT_DIR$/focus/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/topic_page.html" afterPath="$PROJECT_DIR$/focus/templates/topic_page.html" />
     </list>
     <ignored path="lanmei-io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/focus/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6270">
-              <caret line="39" column="33" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="33" />
+            <state relative-caret-position="247">
+              <caret line="382" column="51" selection-start-line="382" selection-start-column="51" selection-end-line="382" selection-end-column="51" />
               <folding>
                 <element signature="e#25#40#0" expanded="true" />
               </folding>
@@ -105,15 +103,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
+            <state relative-caret-position="247">
+              <caret line="46" column="116" selection-start-line="46" selection-start-column="116" selection-end-line="46" selection-end-column="116" />
               <folding>
                 <element signature="e#693#717#0#HTML" expanded="true" />
                 <element signature="e#729#752#0#HTML" expanded="true" />
-                <marker date="1474635272000" expanded="false" signature="3622:3646" ph="..." />
+                <marker date="1474635872000" expanded="false" signature="3672:3696" ph="..." />
               </folding>
             </state>
           </provider>
@@ -1054,24 +1052,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/focus/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
+        <state relative-caret-position="247">
+          <caret line="382" column="51" selection-start-line="382" selection-start-column="51" selection-end-line="382" selection-end-column="51" />
           <folding>
-            <element signature="e#693#717#0#HTML" expanded="true" />
-            <element signature="e#729#752#0#HTML" expanded="true" />
-            <marker date="1474635272000" expanded="false" signature="3622:3646" ph="..." />
+            <element signature="e#25#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focus/models.py">
+    <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6270">
-          <caret line="39" column="33" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="33" />
+        <state relative-caret-position="247">
+          <caret line="46" column="116" selection-start-line="46" selection-start-column="116" selection-end-line="46" selection-end-column="116" />
           <folding>
-            <element signature="e#25#40#0" expanded="true" />
+            <element signature="e#693#717#0#HTML" expanded="true" />
+            <element signature="e#729#752#0#HTML" expanded="true" />
+            <marker date="1474635872000" expanded="false" signature="3672:3696" ph="..." />
           </folding>
         </state>
       </provider>
