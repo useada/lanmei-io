@@ -32,6 +32,8 @@
                                         <img src="{% static "img/default_avatar.jpg" %}" alt="..." width="64" height="64" />
                                     {% endif %}
                                 </a>
+                                <br><br>
+                                <wb:share-button appkey="3315407051" addition="simple" type="button" ralateUid="5262632803"></wb:share-button>
                             </div>
                         </div>
 
@@ -65,7 +67,6 @@
 
                             <div class="row">
                                 <div class="col-xs-12">
-                                    {#                        <wb:share-button appkey="3315407051" addition="simple" type="button" ralateUid="5262632803"></wb:share-button>#}
                                     <ul class="list-inline">
                                         <li>
                                             <a article-comment-door="true" class="text-muted" id="article-{{ article.id }}-comment-door" article_id="{{ article.id }}" comment_num="{{ article.comment_num }}" href="javascript:void(0);">
@@ -77,6 +78,10 @@
                                                 <span id="article-{{ article.id }}-pollnum">{{ article.poll_num }}</span>赞
                                             </a>
                                         </li>
+{#                                        <li>#}
+{#                                            <wb:share-button appkey="3315407051" addition="simple" type="icon"></wb:share-button>#}
+{#                                        </li>#}
+
                                         {% if user.id == article.author_id %}
                                             <li class="pull-right">
                                                 <a article-edit-door="true" class="pull-right" id="article-{{ article.id }}-edit-door" article_id="{{ article.id }}" href="javascript:void(0);">
