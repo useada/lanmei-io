@@ -7,7 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>开心咖啡~来点儿有意思的</title>
+    {% if title %}
+        <title>开心咖啡~{{ title | truncatechars:100 | safe }}</title>
+    {% else %}
+        <title>开心咖啡~来点儿有意思的</title>
+    {% endif %}
+
     {% load staticfiles %}
 
     <!-- Bootstrap Core CSS -->

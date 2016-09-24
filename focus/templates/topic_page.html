@@ -14,12 +14,6 @@
             </article>
         </div>
 
-        <script type="text/javascript">
-{#            $(document).ready(function(){#}
-                $("title").html('开心咖啡:' + '{{ topic.content | truncatechars_html:100 | safe }}');
-{#            });#}
-        </script>
-
         <!-- Article -->
         <hr>
         {% for article in article_list %}

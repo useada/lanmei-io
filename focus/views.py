@@ -77,6 +77,7 @@ def topic_handler(request, topic_id, article_page=1):
 
     return render(request, 'topic_page.html', {
         'topic': topic,
+        'title': topic.content,
         'login_form': login_form,
         'article_form': article_form,
         'article_list': article_list,
