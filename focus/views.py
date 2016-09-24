@@ -42,7 +42,9 @@ def helper(request):
 
 def topic_list(request):
     latest_topic_list = Topic.objects.query_by_time()
-    context = {'latest_topic_list': latest_topic_list}
+    top10_topic_list = Topic.objects.query_by_polls()[:10]
+    context = {'latest_topic_list': latest_topic_list,
+               'top10_topic_list': top10_topic_list}
     return render(request, 'topic_list.html', context)
 
 
@@ -174,7 +176,12 @@ def add_comment(request, topic_id, article_id):
         # topic = Topic.objects.get(id=topic_id)
         article = Article.objects.get(id=article_id)
         content = form.cleaned_data['content']
-        comment = Comment(author=user, content=content, article=article)
+        rt = form.cleaned_data['rt']
+        refer_to = None
+        if rt != '0':
+            refer_to = MyUser.objects.get(salt=rt)
+
+        comment = Comment(author=user, content=content, refer_to=refer_to, article=article)
         comment.save()
         article.comment_num += 1
         article.save()

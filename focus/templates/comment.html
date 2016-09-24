@@ -1,23 +1,8 @@
 {% load myfilter %}
+{% load staticfiles %}
 
     <!-- Comments -->
-    <div class="pagination panel panel-default">
-
-        {% comment %}
-                        <div class="panel-heading">
-                                    <ul class="list-inline panel-title">
-                                        <li> <a id="article-{{ article.id }}-comment-door"> <span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论</a> </li>
-                                        <li><a href="/focus/{{ article.id }}/keep/"><span class="glyphicon glyphicon-star-empty"></span>{{ article.keep_num }} 收藏</a></li>
-                                        <li><a href="/focus/{{ article.id }}/poll/"><span class="glyphicon glyphicon-thumbs-up"></span>{{ article.poll_num }} 赞</a></li>
-
-                                        {% if user.id == article.author_id %}
-                                            <li><a href="/focus/del_article/{{ topic.id }}/{{ article.id }}/">删除文章</a></li>
-                                        {% endif %}
-
-                                    </ul>
-                                </div>
-{% endcomment %}
-
+    <div class="panel panel-default">
 
         <div class="list-group">
             {% for comment in article.comment_list %}
@@ -29,10 +14,38 @@
                             </a>
                         </div>
                     {% endif %}
-                    <div><a class="h5" href="/focus/people/{{ comment.author.salt }}">{{ comment.author }}</a>
-                        <br><br>
-                        <p>{{ comment.content | safe }}</p>
-                        <small>{{ comment.pub_date|my_date }}</small>
+
+                    <div>
+
+                        <div class="media">
+                            <a class="media-left" href="/focus/people/{{ comment.author.salt }}">
+                                {% if comment.author.avatar %}
+                                    <img src="{{ comment.author.avatar }}" alt="..." width="20" height="20" />
+                                {% else %}
+                                    <img src="{% static "img/default_avatar.jpg" %}" alt="..." width="20" height="20" />
+                                {% endif %}
+                            </a>
+                            <div class="media-body">
+                                <a href="/focus/people/{{ comment.author.salt }}">
+                                    <small>{{ comment.author }}</small>
+                                </a>
+                                {% if comment.refer_to %}
+                                    <small class="text-muted">&nbsp;&nbsp;回复&nbsp;&nbsp;</small>
+                                    <a href="/focus/people/{{ comment.author.salt }}">
+                                        <small>{{ comment.refer_to }}</small>
+                                    </a>
+                                {% endif %}
+                                <br>
+                                <p>{{ comment.content | safe }}</p>
+
+
+                                <a refer_to="true" salt="{{ comment.author.salt }}" nick="{{ comment.author }}" href="javascript:void(0);">
+                                    <small class="text-muted"><span class="glyphicon glyphicon-share-alt"></span>回复</small>
+                                </a>
+                                &nbsp;
+                                <small class="text-muted">{{ comment.pub_date|my_date }}</small>
+                            </div>
+                        </div>
 
                     </div>
                 </article>
@@ -44,6 +57,8 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="input-group">
+                                <input type="hidden" id="article-{{ article.id }}-add-comment-rt" name="rt" value="0" type="text" class="form-control" >
+
                                 <input id="article-{{ article.id }}-add-comment-content" name="content" type="text" class="form-control" placeholder="您的评论">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit" id="submit">添加</button>
@@ -92,11 +107,12 @@
             return false;
         {% endif %}
 
+        var rt = $("#article-{{ article.id }}-add-comment-rt").val();
         var content = $("#article-{{ article.id }}-add-comment-content").val();
 
         $.ajax({
             type:"POST",
-            data: {content:content},
+            data: {content:content, rt:rt},
             url:  '/focus/add_comment/{{ topic.id }}/{{ article.id }}/',
             cache: false,
             dataType: "html",
@@ -125,6 +141,19 @@
 {#                callback : function() {#}
 {#                }#}
 {#            });#}
+        }
+
+        return false;
+    });
+
+
+    $("a[refer_to]").click(function() {
+        var $this = $(this);
+        var salt = $this.attr("salt");
+        var nick = $this.attr('nick');
+        if (salt && nick) {
+            $("#article-{{ article.id }}-add-comment-rt").val(salt);
+            $("#article-{{ article.id }}-add-comment-content").attr('placeholder', '回复' + nick + '');
         }
 
         return false;

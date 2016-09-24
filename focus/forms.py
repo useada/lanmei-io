@@ -226,6 +226,7 @@ class ArticleEditForm(forms.Form):
 
 class CommmentForm(forms.Form):
     content = forms.CharField(label='')
+    rt = forms.CharField(label='')  # 回复XX
 
 
 class SearchForm(forms.Form):

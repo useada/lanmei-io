@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="col-sm-1"></div>
     <!-- Center Column -->
-    <div class="col-sm-9">
+    <div class="col-sm-8">
 
         {% for topic in latest_topic_list %}
             <div class="row">
@@ -32,9 +32,9 @@
 
 
     <!-- Right Column -->
-{#    {% include "righter.html" %}#}
-
-<div class="col-sm-2"></div>
+<div class="col-sm-3">
+    {% include "righter.html" %}
+</div>
 </div><!--/container-fluid-->
 
 {% include "footer.html" %}

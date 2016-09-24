@@ -29,7 +29,7 @@
 {#        </div>#}
 {#    {% endif %}#}
     <!-- Progress Bars -->
-    <div class="panel panel-default">
+    <div class="panel panel-warning">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <span class="glyphicon glyphicon-tasks"></span>
@@ -39,8 +39,9 @@
         <div class="panel-body">
             {% for topic in top10_topic_list %}
                 <a href="/focus/{{ topic.id }}">
-                <h5>{{ topic.content|truncatechars_html:36 | safe }}</h5>
+                    <span>{{ topic.content|truncatechars_html:36 | safe }}</span>
                 </a>
+                <br><br>
             {% endfor %}
 
             <a href="/focus/topic_list/"><span class="text-muted h6">查看其它主题</span></a>

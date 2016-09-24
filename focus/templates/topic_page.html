@@ -1,5 +1,6 @@
 {% include "header.html" %}
 {% load myfilter %}
+{% load staticfiles %}
 
 <div class="container-fluid">
     <div class="col-sm-1"></div>
@@ -16,212 +17,211 @@
         <!-- Article -->
         <hr>
         {% for article in article_list %}
-            <div class="row" id="article-{{ article.id }}-box">
-                <div class="col-xs-1">
 
-                    <div>
-                        <div class="btn-group-vertical" role="group" aria-label="...">
-                            <a id="article-{{ article.id }}-poll" poll-url="/focus/poll/{{ topic.id }}/{{ article.id }}/" article_id="{{ article.id }}" href="javascript:void(0);">
-                                <h3 style="color: rgb(21, 51, 128);">赞</h3>
-                                <span id="article-{{ article.id }}-pollnum" class="badge">{{ article.poll_num }}</span>
-                            </a>
+            <div id="article-{{ article.id }}-box" class="row">
+                <div class="col-xs-12">
+
+                    <div class="media">
+
+                        <div class="media-left">
+                            <div class="btn-group-vertical" role="group" aria-label="...">
+                                <a href="/focus/people/{{ article.author.salt }}">
+                                    {% if article.author.avatar %}
+                                        <img src="{{ article.author.avatar }}" alt="..." width="64" height="64" />
+                                    {% else %}
+                                        <img src="{% static "img/default_avatar.jpg" %}" alt="..." width="64" height="64" />
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="media-body">
+                            <p>
+                                <a class="h4" href="/focus/people/{{ article.author.salt }}">{{ article.author }}</a>
+                                {% if article.author.profile %}
+                                    <span> . {{ article.author.profile }}</span>
+                                {% endif %}
+                                <br>
+                                <span class="text-muted small">{{ article.pub_date | my_date }}</span>
+                            </p>
+
+                            <div id="article-{{ article.id }}">
+                                <div id="article-{{ article.id }}-show">
+                                    {{ article.content | safe }}
+                                </div>
+                                <div id="article-{{ article.id }}-edit" style="display:none;">
+
+                                    <textarea id="article-{{ article.id }}-editor" placeholder="" autofocus>
+                                    </textarea>
+                                    <div class="pull-right">
+                                        <button id="article-{{ article.id }}-edit-cancel" type="button" class="btn btn-default btn-lg">取消</button>
+                                        <button id="article-{{ article.id }}-edit-submit" type="button" class="btn btn-primary btn-lg">提交</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <p></p>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    {#                        <wb:share-button appkey="3315407051" addition="simple" type="button" ralateUid="5262632803"></wb:share-button>#}
+                                    <ul class="list-inline">
+                                        <li>
+                                            <a article-comment-door="true" class="text-muted" id="article-{{ article.id }}-comment-door" article_id="{{ article.id }}" comment_num="{{ article.comment_num }}" href="javascript:void(0);">
+                                                <span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }}条评论(查看添加)</a>
+                                        </li>
+                                        <li>
+                                            <a class="text-muted" id="article-{{ article.id }}-poll" poll-url="/focus/poll/{{ topic.id }}/{{ article.id }}/" article_id="{{ article.id }}" href="javascript:void(0);">
+                                                <span class="glyphicon glyphicon-star"></span>
+                                                <span id="article-{{ article.id }}-pollnum">{{ article.poll_num }}</span>赞
+                                            </a>
+                                        </li>
+                                        {% if user.id == article.author_id %}
+                                            <li class="pull-right">
+                                                <a article-edit-door="true" class="pull-right" id="article-{{ article.id }}-edit-door" article_id="{{ article.id }}" href="javascript:void(0);">
+                                                    <strong>
+                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                                                    </strong>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+
+                                    {#                                    <!-- JiaThis Button BEGIN -->#}
+                                    {#                                    <div class="jiathis_style">#}
+                                    {#    <span class="jiathis_txt">分享到：</span>#}
+                                    {##}
+                                    {#                                        <a class="jiathis_button_tsina"></a>#}
+                                    {#                                        <a class="jiathis_button_weixin"></a>#}
+                                    {##}
+                                    {#<a class="jiathis_button_qzone"></a>#}
+                                    {#<a class="jiathis_button_tsina"></a>#}
+                                    {#<a class="jiathis_button_tqq"></a>#}
+                                    {##}
+                                    {#<a class="jiathis_button_xiaoyou"></a>#}
+                                    {#<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>#}
+                                    {#                                    </div>#}
+                                    {#                                    <script type="text/javascript" >#}
+                                    {#                                        var jiathis_config={#}
+                                    {#                                            siteNum:6,#}
+                                    {#                                            sm:"tsina, weixin",#}
+                                    {#                                            summary:"{{ article.topic.content | striptags | truncatechars:120  }}",#}
+                                    {#                                            boldNum:2,#}
+                                    {#                                            shortUrl:false,#}
+                                    {#                                            hideMore:false#}
+                                    {#                                        }#}
+                                    {#                                    </script>#}
+                                    {#                                    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>#}
+                                    {#                                    <!-- JiaThis Button END -->#}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div id="article-{{ article.id }}-comment" style="display:none;">
+                                        {% include "comment.html" %}
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
+
 
                 </div>
-
-                <article class="col-xs-11">
-                    <p>
-                        <a class="h4" href="/focus/people/{{ article.author.salt }}">{{ article.author }}</a>
-                        {% if article.author.profile %}
-                            <span> . {{ article.author.profile }}</span>
-                        {% endif %}
-                        <br>
-                        <span class="text-muted small">{{ article.pub_date | my_date }}</span>
-                    </p>
-
-                    <div id="article-{{ article.id }}">
-                        <div id="article-{{ article.id }}-show">
-                            {{ article.content | safe }}
-                        </div>
-                        {% if user.id == article.author_id %}
-                            <a class="pull-right" id="article-{{ article.id }}-edit-door" href="javascript:void(0);">
-                                <strong>
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
-                                </strong>
-                            </a>
-                        {% endif %}
-                        <div id="article-{{ article.id }}-edit" style="display:none;">
-                            <textarea id="article-{{ article.id }}-editor" placeholder="" autofocus>
-                            </textarea>
-
-                            <div class="pull-right">
-                                <button id="article-{{ article.id }}-edit-cancel" type="button" class="btn btn-default btn-lg">取消</button>
-                                <button id="article-{{ article.id }}-edit-submit" type="button" class="btn btn-primary btn-lg">提交</button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <p></p>
-
-                    <div class="row">
-                        <div class="col-xs-3">
-{#                        <wb:share-button appkey="3315407051" addition="simple" type="button" ralateUid="5262632803"></wb:share-button>#}
-
-                            <a class="text-muted" id="article-{{ article.id }}-comment-door" href="javascript:void(0);"> <span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(查看添加)</a>
-                        </div>
-
-                        <div class="col-xs-7">
-
-                            <!-- JiaThis Button BEGIN -->
-                            <div class="jiathis_style">
-                                {#    <span class="jiathis_txt">分享到：</span>#}
-
-                                <a class="jiathis_button_tsina"></a>
-                                <a class="jiathis_button_weixin"></a>
-
-                                {#<a class="jiathis_button_qzone"></a>#}
-                                {#<a class="jiathis_button_tsina"></a>#}
-                                {#<a class="jiathis_button_tqq"></a>#}
-                                {##}
-                                {#<a class="jiathis_button_xiaoyou"></a>#}
-                                {#<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>#}
-                            </div>
-                            <script type="text/javascript" >
-                                var jiathis_config={
-                                    siteNum:6,
-                                    sm:"tsina, weixin",
-                                    summary:"{{ article.topic.content | striptags | truncatechars:120  }}",
-                                    boldNum:2,
-                                    shortUrl:false,
-                                    hideMore:false
-                                }
-                            </script>
-                            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-                            <!-- JiaThis Button END -->
-
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div id="article-{{ article.id }}-comment" style="display:none;">
-                                {% include "comment.html" %}
-                            </div>
-                        </div>
-                    </div>
-
-
-                </article>
-
-                <script type="text/javascript">
-{#                    $('#article-{{ article.id }}-comment').hide();#}
-{#                    $('#article-{{ article.id }}-edit').hide();#}
-
-                    $('#article-{{ article.id }}-comment-door').click(
-                            function(){
-                                var door = $('#article-{{ article.id }}-comment-door');
-                                var node=$('#article-{{ article.id }}-comment');
-                                if (node.is(':visible'))
-                                {
-                                    node.hide();
-                                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(查看添加)');
-                                }
-                                else
-                                {
-                                    node.show();
-                                    door.html('<span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 条评论(收起评论)');
-                                }
-                            });
-
-                    $('#article-{{ article.id }}-edit-door').click(
-                            function(){
-                                var door = $('#article-{{ article.id }}-edit-door');
-                                var show_node=$('#article-{{ article.id }}-show');
-                                var edit_node=$('#article-{{ article.id }}-edit');
-
-                                var cc = '<textarea id="article-{{ article.id }}-editor" placeholder="" autofocus></textarea>'
-                                        + '<div class="row">'
-                                        + '<div class="col-sm-6"><button id="article-{{ article.id }}-edit-submit" type="button" class="btn btn-primary btn btn-block">提交</button></div>'
-                                        + '<div class="col-sm-6"><button id="article-{{ article.id }}-edit-cancel" type="button" class="btn btn-default btn btn-block">取消</button></div>'
-                                        + '</div>';
-
-                                edit_node.html(cc);
-
-                                if (door.is(':visible'))
-                                {
-                                    door.hide();
-                                    show_node.hide();
-                                    edit_node.show();
-                                    var editor = new Simditor({
-                                        textarea: $('#article-{{ article.id }}-editor'),
-                                        //placeholder: show_node.text(),
-                                        //optional options
-                                    });
-                                    editor.setValue(show_node.html());
-
-                                    $('#article-{{ article.id }}-edit-cancel').click(
-                                            function() {
-                                                var door = $('#article-{{ article.id }}-edit-door');
-                                                var show_node=$('#article-{{ article.id }}-show');
-                                                var edit_node=$('#article-{{ article.id }}-edit');
-
-                                                door.show();
-                                                show_node.show();
-
-                                                edit_node.hide();
-                                            });
-
-                                    $('#article-{{ article.id }}-edit-submit').click(
-                                            function() {
-                                                var content = editor.getValue();
-
-                                                $.ajax({
-                                                    type:"POST",
-                                                    data: {content:content},
-                                                    url:  '/focus/edit_article/{{ topic.id }}/{{ article.id }}/',
-                                                    cache: false,
-                                                    dataType: "html",
-                                                    success: function(result, statues, xml){
-                                                        //alert(result);
-                                                        //$('#article-{{ article.id }}-comment').html(result);
-
-
-                                                        var door = $('#article-{{ article.id }}-edit-door');
-                                                        var show_node=$('#article-{{ article.id }}-show');
-                                                        var edit_node=$('#article-{{ article.id }}-edit');
-
-                                                        door.show();
-                                                        show_node.html(content);
-                                                        show_node.show();
-
-                                                        edit_node.hide();
-                                                    },
-                                                    error: function(){
-                                                        //alert("false");
-                                                        var door = $('#article-{{ article.id }}-edit-door');
-                                                        var show_node=$('#article-{{ article.id }}-show');
-                                                        var edit_node=$('#article-{{ article.id }}-edit');
-
-                                                        door.show();
-                                                        show_node.show();
-
-                                                        edit_node.hide();
-                                                    }
-                                                });
-                                                return false;
-                                            });
-                                }
-
-                            });
-                </script>
-
             </div>
             <hr>
         {% endfor %}
 
+
+
         <script type="text/javascript">
+
+            $('a[article-comment-door]').click(
+                    function(){
+{#                        alert('article-comment-door');#}
+                        var $this = $(this);
+                        var article_id = $this.attr("article_id");
+                        var comment_num = $this.attr("comment_num");
+                        var node=$('#article-'+article_id+'-comment');
+                        if (node.is(':visible'))
+                        {
+                            node.hide();
+                            $this.html('<span class="glyphicon glyphicon-comment"></span> '+comment_num+'条评论(查看添加)');
+                        }
+                        else
+                        {
+                            node.show();
+                            $this.html('<span class="glyphicon glyphicon-comment"></span> '+comment_num+'条评论(收起评论)');
+                        }
+                    });
+
+            $('a[article-edit-door]').click(
+                    function(){
+                        var $this = $(this);
+                        var article_id = $this.attr("article_id");
+
+                        var show_node=$('#article-'+article_id+'-show');
+                        var edit_node=$('#article-'+article_id+'-edit');
+
+                        var cc = '<textarea id="article-'+article_id+'-editor" placeholder="" autofocus></textarea>'
+                                + '<div class="row">'
+                                + '<div class="col-sm-6"><button id="article-'+article_id+'-edit-submit" type="button" class="btn btn-primary btn btn-block">提交</button></div>'
+                                + '<div class="col-sm-6"><button id="article-'+article_id+'-edit-cancel" type="button" class="btn btn-default btn btn-block">取消</button></div>'
+                                + '</div>';
+
+                        edit_node.html(cc);
+
+                        if ($this.is(':visible'))
+                        {
+                            $this.hide();
+                            show_node.hide();
+                            edit_node.show();
+                            var editor = new Simditor({
+                                textarea: $('#article-'+article_id+'-editor'),
+                                //placeholder: show_node.text(),
+                            });
+                            editor.setValue(show_node.html());
+
+                            $('#article-'+article_id+'-edit-cancel').click(
+                                    function() {
+                                        $this.show();
+                                        show_node.show();
+                                        edit_node.hide();
+                                    });
+
+                            $('#article-'+article_id+'-edit-submit').click(
+                                    function() {
+                                        var $this = $(this);
+                                        var content = editor.getValue();
+
+                                        $.ajax({
+                                            type:"POST",
+                                            data: {content:content},
+                                            url:  '/focus/edit_article/{{ topic.id }}/'+article_id+'/',
+                                            cache: false,
+                                            dataType: "html",
+                                            success: function(result, statues, xml){
+                                                $this.show();
+                                                show_node.html(content);
+                                                show_node.show();
+                                                edit_node.hide();
+                                            },
+                                            error: function(){
+                                                $this.show();
+                                                show_node.show();
+                                                edit_node.hide();
+                                            }
+                                        });
+                                        return false;
+                                    });
+                        }
+
+                    });
+
             $("a[poll-url]").click(function() {
                 {% if not request.user.is_authenticated %}
                     need_login_prompt('{{ request.path }}');
@@ -332,15 +332,5 @@
 
     <div class="col-sm-2"></div>
 </div><!--/container-fluid-->
-
-
-{#<div id="epiceditor"></div>#}
-{#{% load staticfiles %}#}
-{#<script src="{% static "epiceditor/js/epiceditor.min.js" %}"></script>#}
-{#<script language="javascript">#}
-{#    var editor = new EpicEditor({basePath: '{% static "epiceditor" %}'}).load();#}
-{#</script>#}
-
-
 
 {% include "footer.html" %}
