@@ -19,6 +19,7 @@ from django.http import (
 # import markdown2
 import urlparse
 import os
+import json
 
 
 def index(request):
@@ -30,6 +31,21 @@ def index(request):
                 'top10_topic_list': top10_topic_list,
                 'login_form': login_form}
     return render(request, 'index.html', context)
+
+
+def index_more(request):
+    article_index = request.GET.get('article_index', None)
+    begin = int(article_index)
+    count = begin + 5
+    top_article_list = Article.objects.query_by_polls()[begin:count]
+    n = top_article_list.count()
+    if n > 0:
+        context = {'top_article_list': top_article_list}
+        html = render(request, 'index_more.html', context)
+        response_data = {'article_index': begin+n, 'content': html.content}
+    else:
+        response_data = {'article_index': begin, 'content': ''}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 def helper(request):
