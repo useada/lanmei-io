@@ -21,10 +21,6 @@ import urlparse
 import os
 
 
-def my_salt():
-    return ''.join(map(lambda xx: (hex(ord(xx))[2:]), os.urandom(16)))
-
-
 def index(request):
     status = Status.objects.get_current()
     top10_article_list = Article.objects.query_by_polls()[:10]
@@ -314,8 +310,8 @@ def register(request):
                     elif MyUser.objects.filter(email=email).exists():
                         msg = "email exist"
                     else:
-                        salt = my_salt()
-                        user = MyUser.objects.create_user(email, username, password, None, profile=profile, salt=salt)
+                        user = MyUser.objects.create_user(email, username, password, None, profile=profile)
+                        salt = user.salt
                         stat = Statistics(user=user, salt=salt)
                         stat.save()
                         msg = "success"

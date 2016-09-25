@@ -137,6 +137,7 @@ COMMENT_NUM_ONE_PAGE = 6
 
 ########## 微博登陆
 URL = 'http://kaixinkafei.com'
+# URL = 'http://127.0.0.1:8000'
 APP_KEY = ''
 APP_SERCET = ''
-CALLBACK_URL = URL+'/focus/weibo_check/'  # 回调地址
+CALLBACK_URL = URL+'/focus/weibo_check'  # 回调地址
