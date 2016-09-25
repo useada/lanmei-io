@@ -39,56 +39,15 @@
         <div class="col-sm-12" id="article_list">
         <!-- Articles -->
         {% for article in top10_article_list %}
-            <div class="row">
-                <div class="col-xs-12">
-
-                    <div class="media">
-                        <a class="media-left" href="/focus/people/{{ article.author.salt }}">
-                            {% if article.author.avatar %}
-                                <img src="{{ article.author.avatar }}" alt="..." width="64" height="64" />
-                            {% else %}
-                                <img src="{% static "img/default_avatar.jpg" %}" alt="..." width="64" height="64" />
-                            {% endif %}
-                        </a>
-                        <div class="media-body">
-{#                            <h4 class="media-heading">Media heading</h4>#}
-                            <p>
-                                <a href="/focus/people/{{ article.author.salt }}"><b class="text-info">{{ article.author }}</b></a>
-
-                                {% if article.author.profile %}
-                                    . <span class="text-muted small">{{ article.author.profile }}</span>
-                                {% endif %}
-                                <span class="text-muted small">{{ article.pub_date|my_date }}</span>
-                            </p>
-
-                            <h4>
-                                <a href="/focus/{{ article.topic_id }}">
-                                    {{ article.topic.content|truncatechars_html:80 | safe }}
-                                </a>
-                            </h4>
-
-                            {{ article.content|truncatechars_html:80 | safe }}
-                            <a class="text-muted" href="/focus/{{ article.topic_id }}/#article-{{ article.id }}-box">点击阅读</a>
-
-                            <ul class="list-inline small">
-                                <li><span class="text-muted"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</span></li>
-                                <li><span class="text-muted"><span class="glyphicon glyphicon-star"></span>{{ article.poll_num }} 赞</span></li>
-                            </ul>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include "index_article.html" %}
             <hr>
         {% endfor %}
-{#            <div id="end_of_article_list"></div>#}
         </div>
     </div>
 
         <div class="row">
             <div class="col-sm-12">
-                <a id="index_more" article_index="10" class="btn btn-info btn-lg btn-block" href="javascript:void(0);">更多</a>
+                <a id="index_more" article_index="{{ top10_article_list.count }}" class="btn btn-info btn-lg btn-block" href="javascript:void(0);">更多</a>
             </div>
         </div>
 
