@@ -4,8 +4,7 @@
     <list default="true" id="69495602-d3ea-441f-b2ff-fe1b2c46309a" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/focus/static/img/lanmei-info.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/psd/lanmei-show.jpg" afterPath="$PROJECT_DIR$/psd/lanmei-show.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/index.html" afterPath="$PROJECT_DIR$/focus/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/index_more.html" afterPath="$PROJECT_DIR$/focus/templates/index_more.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/focus/templates/index_article.html" afterPath="$PROJECT_DIR$/focus/templates/index_article.html" />
     </list>
     <ignored path="lanmei-io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +42,18 @@
       <file leaf-file-name="index_article.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/focus/templates/index_article.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+            <state relative-caret-position="266">
+              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/focus/templates/header.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-456">
+              <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -65,6 +74,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="76">
               <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="topic_page.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/focus/templates/topic_page.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="25" column="48" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -94,16 +113,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="topic_list.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/focus/templates/topic_list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/focus/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -122,16 +131,6 @@
               <folding>
                 <element signature="e#1#42#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="comment.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/focus/templates/comment.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="31" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -178,9 +177,9 @@
         <option value="$PROJECT_DIR$/focus/urls.py" />
         <option value="$PROJECT_DIR$/focus/models.py" />
         <option value="$PROJECT_DIR$/focus/views.py" />
-        <option value="$PROJECT_DIR$/focus/templates/index_article.html" />
         <option value="$PROJECT_DIR$/focus/templates/index_more.html" />
         <option value="$PROJECT_DIR$/focus/templates/index.html" />
+        <option value="$PROJECT_DIR$/focus/templates/index_article.html" />
       </list>
     </option>
   </component>
@@ -634,7 +633,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="709" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="709" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19921875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -944,14 +943,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focus/templates/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/focus/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4237">
@@ -996,14 +987,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="57" column="87" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/focus/templates/topic_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="71" column="232" selection-start-line="71" selection-start-column="213" selection-end-line="71" selection-end-column="232" />
           <folding />
         </state>
       </provider>
@@ -1094,10 +1077,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/focus/templates/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-456">
+          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/focus/templates/topic_page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="25" column="48" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/focus/templates/index_article.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+        <state relative-caret-position="266">
+          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
           <folding />
         </state>
       </provider>
