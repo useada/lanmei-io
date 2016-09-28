@@ -82,12 +82,16 @@
         if (next.length > 0)
         {
             msg = '<ul class="list-inline"><li> <a href="/focus/login/?next=' + next + '">本站登录</a> </li>'
-                + '<li> <a href="/focus/weibo_login/?next=' + next + '">微博登录</a> </li></ul>';
+                + '<li> <a href="/focus/weibo_login/?next=' + next + '">微博登录</a> </li>'
+                + '<li> <a href="/focus/register/?next=' + next + '">没有账号? 注册一个呗</a> </li>'
+                + '</ul>';
         }
         else
         {
             msg = '<ul class="list-inline"><li> <a href="/focus/login/">本站登录</a> </li>'
-                + '<li> <a href="/focus/weibo_login/?next=' + next + '">微博登录</a> </li></ul>';
+                + '<li> <a href="/focus/weibo_login">微博登录</a> </li>'
+                + '<li> <a href="/focus/register">没有账号? 注册一个呗</a> </li>'
+                + '</ul>';
         }
 
         BootstrapDialog.show({
