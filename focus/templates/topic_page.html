@@ -22,7 +22,6 @@
                 <div class="col-xs-12">
 
                     <div class="media">
-
                         <div class="media-left">
                             <div class="btn-group-vertical" role="group" aria-label="...">
                                 <a href="/focus/people/{{ article.author.salt }}">
@@ -38,6 +37,13 @@
                         </div>
 
                         <div class="media-body">
+                            {% if user.id == article.author_id %}
+                                <div class="pull-right">
+                                    <a del-article="true" id="article-{{ article.id }}-del" article_id="{{ article.id }}" class="text-muted" href="javascript:void(0);" url="/focus/del_article/{{ topic.id }}/{{ article.id }}">
+                                        <span class="glyphicon glyphicon-remove"></span> 删除
+                                    </a>
+                                </div>
+                            {% endif %}
                             <p>
                                 <a class="h4" href="/focus/people/{{ article.author.salt }}">{{ article.author }}</a>
                                 {% if article.author.profile %}
@@ -78,15 +84,12 @@
                                                 <span id="article-{{ article.id }}-pollnum">{{ article.poll_num }}</span>赞
                                             </a>
                                         </li>
-{#                                        <li>#}
-{#                                            <wb:share-button appkey="3315407051" addition="simple" type="icon"></wb:share-button>#}
-{#                                        </li>#}
 
                                         {% if user.id == article.author_id %}
                                             <li class="pull-right">
-                                                <a article-edit-door="true" class="pull-right" id="article-{{ article.id }}-edit-door" article_id="{{ article.id }}" href="javascript:void(0);">
+                                                <a article-edit-door="true" class="pull-right text-muted" id="article-{{ article.id }}-edit-door" article_id="{{ article.id }}" href="javascript:void(0);">
                                                     <strong>
-                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 修改
                                                     </strong>
                                                 </a>
                                             </li>
@@ -147,7 +150,6 @@
 
             $('a[article-comment-door]').click(
                     function(){
-{#                        alert('article-comment-door');#}
                         var $this = $(this);
                         var article_id = $this.attr("article_id");
                         var comment_num = $this.attr("comment_num");
@@ -230,7 +232,7 @@
             $("a[poll-url]").click(function() {
                 {% if not request.user.is_authenticated %}
                     need_login_prompt('{{ request.path }}');
-                    return;
+                    return false;
                 {% endif %}
 
                 var $this = $(this);
@@ -242,6 +244,26 @@
 
                 return false;
             });
+
+            $("a[del-article]").click(function() {
+            {#                        alert("del article");#}
+                {% if not request.user.is_authenticated %}
+                    need_login_prompt('{{ request.path }}');
+                    return false;
+                {% endif %}
+
+                var $this = $(this);
+                var url = $this.attr("url");
+                var article_id = $this.attr("article_id");
+                if (url && article_id) {
+                    $.get(url, {}, function(data){
+                        $('#article-'+article_id+'-box').hide();
+                    });
+                }
+
+                return false;
+            });
+
         </script>
 
         {% if not article_list|length_is:0 %}

@@ -10,25 +10,16 @@
 
     <div class="row">
         <div class="col-sm-12">
-{#            {% load staticfiles %}#}
-{#            <img src="{% static "img/lanmei-show.jpg" %}" alt="..." class="img-responsive">#}
-{#            <h3 style="color: #104c80;">每期有一个主题, 围绕主题写故事</h3>#}
-{#            <br>#}
-{#            <p>#}
-{#                <span class="h3">本期主题:</span> <a>她去洗澡了</a>#}
-{#            </p>#}
-{#            <hr>#}
-
             <div style="background-color:#f2f8ff; !important" class="jumbotron">
                 <h1 style="color: darkblue;">开心咖啡&nbsp;<small style="color: #104c80;">(来点儿有意思的)</small></h1>
-
-{#                <h3 style="color: #104c80;">每期有一个主题, 围绕主题写故事</h3>#}
 
                 {% if status %}
                 <p>
                     <span class="h3">本期主题:</span> <a href="/focus/{{ status.curr_topic.id }}/">{{ status.curr_topic.content }}</a>
-                    <br>
-                    <a href="/focus/topic_list/"><span class="text-muted h5">查看其它主题</span></a>
+                    <ol class="breadcrumb">
+                        <li><a href="/focus/topic_list/"><span class="text-muted h5">查看其它主题</span></a></li>
+                        <li><a href="/focus/topic_list/"><span class="text-muted h5">没有喜欢的主题? 创建自己的主题吧</span></a></li>
+                    </ol>
                 </p>
                 {% endif %}
             </div>

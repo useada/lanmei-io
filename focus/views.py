@@ -48,16 +48,31 @@ def index_more(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-def helper(request):
-    return render(request, 'helper.html', {})
-
-
 def topic_list(request):
-    latest_topic_list = Topic.objects.query_by_time()
+    hot_topic_list = Topic.objects.query_by_time()[:10]
     top10_topic_list = Topic.objects.query_by_polls()[:10]
-    context = {'latest_topic_list': latest_topic_list,
+    context = {'topic_list': hot_topic_list,
                'top10_topic_list': top10_topic_list}
     return render(request, 'topic_list.html', context)
+
+
+def topic_more(request):
+    topic_index = request.GET.get('topic_index', None)
+    begin = int(topic_index)
+    count = begin + 5
+    hot_topic_list = Topic.objects.query_by_polls()[begin:count]
+    n = hot_topic_list.count()
+    if n > 0:
+        context = {'topic_list': hot_topic_list}
+        html = render(request, 'topic_more.html', context)
+        response_data = {'topic_index': begin+n, 'content': html.content}
+    else:
+        response_data = {'topic_index': begin, 'content': ''}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+def helper(request):
+    return render(request, 'helper.html', {})
 
 
 def topic_handler(request, topic_id, article_page=1):
@@ -176,8 +191,9 @@ def del_article(request, topic_id, article_id):
         if stat is not None:
             stat.article_num -= 1
             stat.save()
-    url = urlparse.urljoin('/focus/', topic_id)
-    return redirect(url)
+    # url = urlparse.urljoin('/focus/', topic_id)
+    # return redirect(url)
+    return HttpResponse("ok")
 
 
 @login_required

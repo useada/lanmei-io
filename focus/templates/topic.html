@@ -1,0 +1,21 @@
+{% load myfilter %}
+
+<div class="row">
+
+    <article class="col-xs-12">
+
+        <a href="/focus/{{ topic.id }}">
+            <h3>
+                {{ topic.content|truncatechars_html:80 | safe }}
+            </h3>
+        </a>
+        <br>
+        {#                    <p class="pull-right"><a class="small" href="/focus/{{ article.topic_id }}">点击进入</a></p>#}
+        <ul class="list-inline small">
+            <li><span>{{ topic.pub_date | my_date }}</span></li>
+            <li><span><span class="glyphicon glyphicon-file"></span> {{ topic.article_num }} 篇文章</span></li>
+            <li><span><span class="glyphicon glyphicon-comment"></span> {{ topic.comment_num }} 评论</span></li>
+            <li><span><span class="glyphicon glyphicon-star-empty"></span>{{ topic.poll_num }} 赞</span></li>
+        </ul>
+    </article>
+</div>

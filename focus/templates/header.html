@@ -81,11 +81,13 @@
         var msg = '';
         if (next.length > 0)
         {
-            msg = '<a href="/focus/login/?next=' + next + '">点击登录</a>';
+            msg = '<ul class="list-inline"><li> <a href="/focus/login/?next=' + next + '">本站登录</a> </li>'
+                + '<li> <a href="/focus/weibo_login/?next=' + next + '">微博登录</a> </li></ul>';
         }
         else
         {
-            msg = '<a href="/focus/login/">点击登录</a>';
+            msg = '<ul class="list-inline"><li> <a href="/focus/login/">本站登录</a> </li>'
+                + '<li> <a href="/focus/weibo_login/?next=' + next + '">微博登录</a> </li></ul>';
         }
 
         BootstrapDialog.show({

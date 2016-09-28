@@ -9,7 +9,7 @@
                 <article class="list-group-item">
                     {% if user.id == comment.author_id %}
                         <div class="pull-right">
-                            <a href="javascript:void(0);" url="/focus/del_comment/{{ topic.id }}/{{ article.id }}/{{ comment.id }}/">
+                            <a del-comment="true" href="javascript:void(0);" url="/focus/del_comment/{{ topic.id }}/{{ article.id }}/{{ comment.id }}/">
                                 删除
                             </a>
                         </div>
@@ -128,19 +128,19 @@
     });
 
 
-    $("a[url]").click(function() {
+{#    $this.ajaxUrl({#}
+{#        type : "POST",#}
+{#        url : url,#}
+{#        callback : function() {#}
+{#        }#}
+{#    });#}
+
+
+    $("a[del-comment]").click(function() {
         var $this = $(this);
         var url = $this.attr("url");
         if (url) {
-
             $.get(url, {}, function(data){ $('#article-{{ article.id }}-comment').html(data); });
-
-{#            $this.ajaxUrl({#}
-{#                type : "POST",#}
-{#                url : url,#}
-{#                callback : function() {#}
-{#                }#}
-{#            });#}
         }
 
         return false;

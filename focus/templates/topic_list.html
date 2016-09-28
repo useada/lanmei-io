@@ -4,31 +4,39 @@
 <div class="container-fluid">
     <div class="col-sm-1"></div>
     <!-- Center Column -->
-    <div class="col-sm-8">
+    <div class="col-sm-8" id="topic_list">
 
-        {% for topic in latest_topic_list %}
-            <div class="row">
-
-                <article class="col-xs-12">
-
-                    <a href="/focus/{{ topic.id }}">
-                        <h3>
-                            {{ topic.content|truncatechars_html:80 | safe }}
-                        </h3>
-                    </a>
-                    <br>
-{#                    <p class="pull-right"><a class="small" href="/focus/{{ article.topic_id }}">点击进入</a></p>#}
-                    <ul class="list-inline small">
-                        <li><span>{{ topic.pub_date | my_date }}</span></li>
-                        <li><span><span class="glyphicon glyphicon-file"></span> {{ topic.article_num }} 篇文章</span></li>
-                        <li><span><span class="glyphicon glyphicon-comment"></span> {{ topic.comment_num }} 评论</span></li>
-                        <li><span><span class="glyphicon glyphicon-star-empty"></span>{{ topic.poll_num }} 赞</span></li>
-                    </ul>
-                </article>
-            </div>
+        {% for topic in topic_list %}
+            {% include "topic.html" %}
             <hr>
         {% endfor %}
+
+        <div class="row">
+            <div class="col-sm-12">
+                <a id="topic_more" topic_index="{{ topic_list.count }}" class="btn btn-info btn-lg btn-block" href="javascript:void(0);">更多</a>
+            </div>
+        </div>
+
     </div><!--/Center Column-->
+
+<script type="text/javascript">
+$("#topic_more").click(function() {
+        var $this = $(this);
+        $this.text('加载中...');
+        var url = '/focus/topic_more';
+        var topic_index = $this.attr("topic_index");
+        if (topic_index) {
+            $.get(url, {topic_index: topic_index}, function(data){
+                $('#topic_list').append(data.content);
+                $this.attr("topic_index", data.topic_index);
+                $this.text('更多');
+            });
+        }
+
+        return false;
+    });
+</script>
+
 
 
     <!-- Right Column -->

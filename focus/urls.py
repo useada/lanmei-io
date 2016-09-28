@@ -6,6 +6,7 @@ from . import weibo_views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^index_more/$', views.index_more, name='index_more'),
+    url(r'^topic_more/$', views.topic_more, name='topic_more'),
 
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.log_in, name='login'),
