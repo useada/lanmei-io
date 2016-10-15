@@ -47,11 +47,11 @@ def my_date(d, now=None):
         now = datetime.datetime.now();
     d = d.replace(tzinfo=None)
     delta = now - d
-    if delta.seconds < 60:
+    if delta.total_seconds() < 60:
         return _(u"刚刚")
-    elif delta.seconds < 60 * 60:
+    elif delta.total_seconds < 60 * 60:
         return _(u"%s分钟之前") % (delta.seconds/60)
-    elif delta.seconds < 60 * 60 * 24:
+    elif delta.total_seconds < 60 * 60 * 24:
         return _(u"%s小时之前") % (delta.seconds/60/60)
     else:
         return _date(d, "Y-m-d H:i")

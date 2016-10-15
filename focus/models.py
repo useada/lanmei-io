@@ -126,6 +126,11 @@ class ArticleManager(models.Manager):
         query = self.get_queryset().filter(title__contains=keyword)
         return query
 
+    def query_hot(self):
+        query = self.get_queryset().extra(select={'new_order_field': '3600*24*30*poll_num+pub_date'}).extra(
+            order_by=['-new_order_field'])
+        return query
+
 
 class StatusManager(models.Manager):
     def get_current(self):

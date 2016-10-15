@@ -24,8 +24,8 @@ import json
 
 def index(request):
     status = Status.objects.get_current()
-    top10_article_list = Article.objects.query_by_polls()[:10]
-    top10_topic_list = Topic.objects.query_by_polls()[:10]
+    top10_article_list = Article.objects.query_hot()[:10]
+    top10_topic_list = Topic.objects.query_by_time()[:10] #最新
     login_form = LoginForm()
     context = { 'status': status, 'top10_article_list': top10_article_list,
                 'top10_topic_list': top10_topic_list,
@@ -37,7 +37,7 @@ def index_more(request):
     article_index = request.GET.get('article_index', None)
     begin = int(article_index)
     count = begin + 5
-    top_article_list = Article.objects.query_by_polls()[begin:count]
+    top_article_list = Article.objects.query_hot()[begin:count]
     n = top_article_list.count()
     if n > 0:
         context = {'top_article_list': top_article_list}
