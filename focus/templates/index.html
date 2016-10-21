@@ -11,14 +11,14 @@
     <div class="row">
         <div class="col-sm-12">
             <div style="background-color:#f2f8ff; !important" class="jumbotron">
-                <h1 style="color: darkblue;">开心咖啡&nbsp;<small style="color: #104c80;">(来点儿有意思的)</small></h1>
+                <h1 style="color: darkblue;">开心咖啡&nbsp;<small style="color: #104c80;">~写不一样的故事</small></h1>
 
                 {% if status %}
                 <p>
-                    <span class="h3">本期主题:</span> <a href="/focus/{{ status.curr_topic.id }}/">{{ status.curr_topic.content }}</a>
+                    <span class="h3">本期故事主题:</span> <a href="/focus/{{ status.curr_topic.id }}/">{{ status.curr_topic.content }}</a>
                     <ol class="breadcrumb">
-                        <li><a href="/focus/topic_list/"><span class="text-muted h5">查看其它主题</span></a></li>
-                        <li><a href="/focus/topic_list/"><span class="text-muted h5">没有喜欢的主题? 创建自己的主题吧</span></a></li>
+                        <li><a href="/focus/topic_list/"><span class="text-muted h5">往期主题故事</span></a></li>
+{#                        <li><a href="/focus/topic_list/"><span class="text-muted h5">没有喜欢的主题? 创建自己的主题吧</span></a></li>#}
                     </ol>
                 </p>
                 {% endif %}

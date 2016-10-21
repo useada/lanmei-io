@@ -10,7 +10,7 @@
     {% if title %}
         <title>开心咖啡~{{ title | truncatechars:100 | safe }}</title>
     {% else %}
-        <title>开心咖啡~来点儿有意思的</title>
+        <title>开心咖啡~写不一样的故事</title>
     {% endif %}
 
     {% load staticfiles %}
@@ -193,7 +193,7 @@
             </button>
 
             <a class="navbar-brand" href="/focus/">
-                <span class="text-primary">开心咖啡</span>
+                <span class="text-primary">开心咖啡<small>&nbsp;~写不一样的故事</small></span>
             </a>
         </div>
 
@@ -201,8 +201,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="/focus/">首页</a></li>
-                <li><a href="/focus/topic_list/">主题</a></li>
-                <li><a href="/focus/helper/">帮助</a></li>
+                <li><a href="/focus/topic_list/">所有故事主题</a></li>
+                <li><a href="/focus/helper/">网站帮助</a></li>
                 {#        <li class="dropdown">#}
                 {#          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>#}
                 {#          <ul class="dropdown-menu">#}
